@@ -39,9 +39,19 @@ class leopardWeb():
 if __name__ == '__main__':
 
     window = tk.Tk()
+
+    label = tk.Label(text = "Enter Username & Password")
+    label.pack()
+
     label = tk.Label(text = "Username")
     label.pack()
     entry = tk.Entry()
-
+    entry.pack()
+    label = tk.Label(text = "Password")
+    label.pack()
+    entry = tk.Entry()
+    entry.pack()
+    button = tk.Button(text= "Login", background= "red", foreground="white")
+    button.pack()
 
     window.mainloop()
