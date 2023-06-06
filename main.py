@@ -1,6 +1,6 @@
-import kivy
-from kivy.app import App
-from kivy.uix.label import Label
+import tkinter as tk
+from tkinter import Label
+
 import sqlite3
 
 # creates sql databases called courses.db and userinfo.db on the local dir
@@ -10,7 +10,7 @@ coursesdb = sqlite3.connect("courses.db")
 coursesCur = coursesdb.cursor()
 # creates a table with the following categories:
 # CRN (primary key) | subject | course number | section number | title | term | type | credit hours
-coursesCur.execute("CREATE TABLE courses (crn INTEGER PRIMARY KEY, subject TEXT ,coursenum INTEGER, sectionnum INTEGER, title TEXT, term TEXT, type TEXT, credithr INTEGER)")
+# coursesCur.execute("CREATE TABLE courses (crn INTEGER PRIMARY KEY, subject TEXT ,coursenum INTEGER, sectionnum INTEGER, title TEXT, term TEXT, type TEXT, credithr INTEGER)")
 ##coursesCur.execute("INSERT INTO courses VALUES (33950, 'ELEC', 3225, 01, 'APPLIED PROGRAMMING CONCEPTS', 'Summer 2023', 'Lecture (LEC)', 3)")
 
 # variables to be added to the table, we can change these variables later, just to test if one course works
@@ -24,17 +24,24 @@ setType = "Lecture (LEC)"
 setCredHr = 3
 
 # adds each of the variables to the database
-coursesCur.execute("INSERT INTO courses (crn, subject, coursenum, sectionnum, title, term, type, credithr) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", (setCRN, setSubject, setCourseNum, setSectNum, setTitle, setTerm, setType, setCredHr))
-coursesdb.commit()
+# coursesCur.execute("INSERT INTO courses (crn, subject, coursenum, sectionnum, title, term, type, credithr) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", (setCRN, setSubject, setCourseNum, setSectNum, setTitle, setTerm, setType, setCredHr))
+# coursesdb.commit()
 
 # Test printout of data in courses database
 testPrint = coursesCur.execute("SELECT crn, subject, coursenum, sectionnum, title, term, type, credithr FROM courses").fetchall()
 print(testPrint)
 
-class leopardWeb(App):
+class leopardWeb():
     def build(self):
         return Label(text= "La website")
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    leopardWeb().run()
+
+    window = tk.Tk()
+    label = tk.Label(text = "Username")
+    label.pack()
+    entry = tk.Entry()
+
+
+    window.mainloop()
