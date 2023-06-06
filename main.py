@@ -1,19 +1,30 @@
 import tkinter as tk
-from tkinter import Label
 from tkinter import *
-from PIL import ImageTk,Image
+from PIL import ImageTk, Image
 
 import sqlite3
 
 # creates sql databases called courses.db and userinfo.db on the local dir
 coursesdb = sqlite3.connect("courses.db")
-#userinfodb = sqlite3.connect("userinfo.db")
+userinfodb = sqlite3.connect("userinfo.db")
 
 coursesCur = coursesdb.cursor()
+userinfoCur = userinfodb.cursor()
 # creates a table with the following categories:
 # CRN (primary key) | subject | course number | section number | title | term | type | credit hours | start time | end time
 # coursesCur.execute("CREATE TABLE courses (crn INTEGER PRIMARY KEY, subject TEXT ,coursenum INTEGER, sectionnum INTEGER, title TEXT, term TEXT, type TEXT, credithr INTEGER, starttime INTEGER, endtime INTEGER)")
-##coursesCur.execute("INSERT INTO courses VALUES (33950, 'ELEC', 3225, 01, 'APPLIED PROGRAMMING CONCEPTS', 'Summer 2023', 'Lecture (LEC)', 3, 0800, 0950)")
+#coursesCur.execute("INSERT INTO courses VALUES (33950, 'ELEC', 3225, 01, 'APPLIED PROGRAMMING CONCEPTS', 'Summer 2023', 'Lecture (LEC)', 3, 0800, 0950)")
+
+# id (primary key) | username | password | user type
+#userinfoCur.execute("CREATE TABLE users (id INTEGER PRIMARY KEY, username TEXT, password TEXT, type TEXT)")
+
+setID = 403388
+setUserName = "Admin"
+setPassword = "Password"
+setType = "Admin"
+
+#userinfoCur.execute("INSERT INTO users (id, username, password, type) VALUES (?, ?, ?, ?)",(setID, setUserName, setPassword, setType))
+#userinfodb.commit()
 
 # variables to be added to the table, we can change these variables later, just to test if one course works
 setCRN = 33950
@@ -32,8 +43,20 @@ setEndTime = 950
 # coursesdb.commit()
 
 # Test printout of data in courses database
-testPrint = coursesCur.execute("SELECT crn, subject, coursenum, sectionnum, title, term, type, credithr FROM courses").fetchall()
-print(testPrint)
+#testPrint = coursesCur.execute("SELECT crn, subject, coursenum, sectionnum, title, term, type, credithr FROM courses").fetchall()
+#print(testPrint)
+
+def checkLogin(un,pw):
+    userinfoCur.execute("SELECT username and password FROM users WHERE username = ? and password = ?", (un,pw))
+    found = userinfoCur.fetchone()
+    if found:
+        print("Correct username & password")
+        return True
+    else:
+        print("Incorrect username or password")
+        return False
+
+
 
 class leopardWeb():
     def build(self):
@@ -46,20 +69,22 @@ if __name__ == '__main__':
 
     label = tk.Label(text = "Enter Username & Password")
     label.pack()
-
+    window.geometry("400x400")
     bg = ImageTk.PhotoImage(Image.open("wit-background.jpg"))
     canvas1 = Canvas(window, width=400,height=400)
     canvas1.pack(fill="both", expand=True)
     canvas1.create_image(0,0,image=bg,anchor="nw")
+    canvas1.create_rectangle(760,440,1160,640,fill='white',outline='white')
+    canvas1.create_text(960,540,text = "test")
     label = tk.Label(text = "Username")
     label.pack()
-    entry = tk.Entry()
-    entry.pack()
+    entry1 = tk.Entry()
+    entry1.pack()
     label = tk.Label(text = "Password")
     label.pack()
-    entry = tk.Entry()
-    entry.pack()
-    button = tk.Button(text= "Login", background= "red", foreground="white")
+    entry2 = tk.Entry(show='*')
+    entry2.pack()
+    button = tk.Button(text= "Login", background= "red", foreground="white",command=lambda: checkLogin(entry1.get(),entry2.get()))    #testing user input boxes: command=lambda: print(entry1.get()," ",entry2.get())
     button.pack()
 
 
