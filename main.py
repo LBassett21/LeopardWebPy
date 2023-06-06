@@ -1,5 +1,7 @@
 import tkinter as tk
 from tkinter import Label
+from tkinter import *
+from PIL import ImageTk,Image
 
 import sqlite3
 
@@ -9,9 +11,9 @@ coursesdb = sqlite3.connect("courses.db")
 
 coursesCur = coursesdb.cursor()
 # creates a table with the following categories:
-# CRN (primary key) | subject | course number | section number | title | term | type | credit hours
-# coursesCur.execute("CREATE TABLE courses (crn INTEGER PRIMARY KEY, subject TEXT ,coursenum INTEGER, sectionnum INTEGER, title TEXT, term TEXT, type TEXT, credithr INTEGER)")
-##coursesCur.execute("INSERT INTO courses VALUES (33950, 'ELEC', 3225, 01, 'APPLIED PROGRAMMING CONCEPTS', 'Summer 2023', 'Lecture (LEC)', 3)")
+# CRN (primary key) | subject | course number | section number | title | term | type | credit hours | start time | end time
+# coursesCur.execute("CREATE TABLE courses (crn INTEGER PRIMARY KEY, subject TEXT ,coursenum INTEGER, sectionnum INTEGER, title TEXT, term TEXT, type TEXT, credithr INTEGER, starttime INTEGER, endtime INTEGER)")
+##coursesCur.execute("INSERT INTO courses VALUES (33950, 'ELEC', 3225, 01, 'APPLIED PROGRAMMING CONCEPTS', 'Summer 2023', 'Lecture (LEC)', 3, 0800, 0950)")
 
 # variables to be added to the table, we can change these variables later, just to test if one course works
 setCRN = 33950
@@ -22,9 +24,11 @@ setTitle = "APPLIED PROGRAMMING CONCEPTS"
 setTerm = "Summer 2023"
 setType = "Lecture (LEC)"
 setCredHr = 3
+setStartTime = 800
+setEndTime = 950
 
 # adds each of the variables to the database
-# coursesCur.execute("INSERT INTO courses (crn, subject, coursenum, sectionnum, title, term, type, credithr) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", (setCRN, setSubject, setCourseNum, setSectNum, setTitle, setTerm, setType, setCredHr))
+# coursesCur.execute("INSERT INTO courses (crn, subject, coursenum, sectionnum, title, term, type, credithr, starttime, endtime) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (setCRN, setSubject, setCourseNum, setSectNum, setTitle, setTerm, setType, setCredHr, setStartTime, setEndTime))
 # coursesdb.commit()
 
 # Test printout of data in courses database
@@ -43,6 +47,10 @@ if __name__ == '__main__':
     label = tk.Label(text = "Enter Username & Password")
     label.pack()
 
+    bg = ImageTk.PhotoImage(Image.open("wit-background.jpg"))
+    canvas1 = Canvas(window, width=400,height=400)
+    canvas1.pack(fill="both", expand=True)
+    canvas1.create_image(0,0,image=bg,anchor="nw")
     label = tk.Label(text = "Username")
     label.pack()
     entry = tk.Entry()
@@ -53,5 +61,6 @@ if __name__ == '__main__':
     entry.pack()
     button = tk.Button(text= "Login", background= "red", foreground="white")
     button.pack()
+
 
     window.mainloop()
