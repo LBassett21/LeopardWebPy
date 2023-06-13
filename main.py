@@ -1,6 +1,7 @@
 import tkinter as tk
+from tkinter import Label
 from tkinter import *
-from PIL import ImageTk, Image
+from PIL import ImageTk,Image
 
 import sqlite3
 
@@ -8,8 +9,10 @@ import sqlite3
 coursesdb = sqlite3.connect("courses.db")
 userinfodb = sqlite3.connect("userinfo.db")
 
+
+
 coursesCur = coursesdb.cursor()
-userinfoCur = userinfodb.cursor()
+userinfoCur=userinfodb.cursor()
 # creates a table with the following categories:
 # CRN (primary key) | subject | course number | section number | title | term | type | credit hours | start time | end time
 # coursesCur.execute("CREATE TABLE courses (crn INTEGER PRIMARY KEY, subject TEXT ,coursenum INTEGER, sectionnum INTEGER, title TEXT, term TEXT, type TEXT, credithr INTEGER, starttime INTEGER, endtime INTEGER)")
@@ -46,21 +49,33 @@ setEndTime = 950
 #testPrint = coursesCur.execute("SELECT crn, subject, coursenum, sectionnum, title, term, type, credithr FROM courses").fetchall()
 #print(testPrint)
 
-def checkLogin(un,pw):
+def checkLogin(un,pw, window):
     userinfoCur.execute("SELECT username and password FROM users WHERE username = ? and password = ?", (un,pw))
     found = userinfoCur.fetchone()
     if found:
         print("Correct username & password")
+        window.destroy()
         return True
     else:
         print("Incorrect username or password")
+
         return False
 
 
+def homePage():
+    window = tk.Tk()
 
-class leopardWeb():
-    def build(self):
-        return Label(text= "La website")
+    bg = ImageTk.PhotoImage(Image.open("banner.png"))
+    canvas1 = Canvas(window, width=1100,height=400)
+    canvas1.pack(fill="both", expand=True)
+    canvas1.create_image(0,0,image=bg, anchor="nw")
+    #label = tk.Label(text = "Main Page")
+    #label.pack()
+
+
+def user_check():
+    return True
+
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
@@ -69,13 +84,12 @@ if __name__ == '__main__':
 
     label = tk.Label(text = "Enter Username & Password")
     label.pack()
-    window.geometry("400x400")
+
     bg = ImageTk.PhotoImage(Image.open("wit-background.jpg"))
     canvas1 = Canvas(window, width=400,height=400)
     canvas1.pack(fill="both", expand=True)
     canvas1.create_image(0,0,image=bg,anchor="nw")
-    canvas1.create_rectangle(760,440,1160,640,fill='white',outline='white')
-    canvas1.create_text(960,540,text = "test")
+
     label = tk.Label(text = "Username")
     label.pack()
     entry1 = tk.Entry()
@@ -84,8 +98,15 @@ if __name__ == '__main__':
     label.pack()
     entry2 = tk.Entry(show='*')
     entry2.pack()
-    button = tk.Button(text= "Login", background= "red", foreground="white",command=lambda: checkLogin(entry1.get(),entry2.get()))    #testing user input boxes: command=lambda: print(entry1.get()," ",entry2.get())
+    button = tk.Button(text= "Login", background= "red", foreground="white",command=lambda: checkLogin(entry1.get(),entry2.get(), window))    #testing user input boxes: command=lambda: print(entry1.get()," ",entry2.get())
     button.pack()
 
+
+    window.mainloop()
+
+
+
+
+    homePage()
 
     window.mainloop()
