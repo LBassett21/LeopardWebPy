@@ -49,12 +49,13 @@ setEndTime = 950
 #testPrint = coursesCur.execute("SELECT crn, subject, coursenum, sectionnum, title, term, type, credithr FROM courses").fetchall()
 #print(testPrint)
 
-def checkLogin(un,pw, window):
-    userinfoCur.execute("SELECT username and password FROM users WHERE username = ? and password = ?", (un,pw))
+def checkLogin(un,pw):
+    userinfoCur.execute("SELECT username and password FROM users WHERE username = ? and password = ?", (un, pw))
     found = userinfoCur.fetchone()
     if found:
         print("Correct username & password")
-        window.destroy()
+
+        mainPage()
         return True
     else:
         print("Incorrect username or password")
@@ -62,51 +63,57 @@ def checkLogin(un,pw, window):
         return False
 
 
-def homePage():
-    window = tk.Tk()
 
+my_w = tk.Tk()
+label = tk.Label(text="Enter Username & Password")
+label.pack()
+bg = ImageTk.PhotoImage(Image.open("wit-background.jpg"))
+canvas1 = Canvas(my_w, width=400, height=400)
+canvas1.pack(fill="both", expand=True)
+canvas1.create_image(0, 0, image=bg, anchor="nw")
+
+label = tk.Label(text="Username")
+label.pack()
+entry1 = tk.Entry()
+entry1.pack()
+label = tk.Label(text="Password")
+label.pack()
+entry2 = tk.Entry(show='*')
+entry2.pack()
+button = tk.Button(text="Login", background="red", foreground="white",
+                   command=lambda:checkLogin(entry1.get(), entry2.get()))  # testing user input boxes: command=lambda: print(entry1.get()," ",entry2.get())
+button.pack()
+
+
+
+def mainPage():
+    my_w_child = Toplevel(my_w)
+    # label = my_w_child.Label(text = "Main Page")
+    # label.pack()
     bg = ImageTk.PhotoImage(Image.open("banner.png"))
-    canvas1 = Canvas(window, width=1100,height=400)
-    canvas1.pack(fill="both", expand=True)
+    canvas1 = Canvas(my_w_child, width=1100,height=400)
+
     canvas1.create_image(0,0,image=bg, anchor="nw")
-    #label = tk.Label(text = "Main Page")
-    #label.pack()
+    canvas1.pack(fill="both", expand=True)
+    personalInfo = tk.Button(my_w_child, text = "Personal Information", command=print("Personal Info Tab")
 
+    )
+    personalInfo.pack()
 
-def user_check():
-    return True
+    student = tk.Button(my_w_child, text="Student", command=print("student")
+
+    )
+    student.pack()
+    financial = tk.Button(my_w_child, text="Financial Aid", command=print("Financial Aid")
+
+    )
+    financial.pack()
+    my_w_child.mainloop()
+def main():
+    my_w.mainloop()
 
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
 
-    window = tk.Tk()
-
-    label = tk.Label(text = "Enter Username & Password")
-    label.pack()
-
-    bg = ImageTk.PhotoImage(Image.open("wit-background.jpg"))
-    canvas1 = Canvas(window, width=400,height=400)
-    canvas1.pack(fill="both", expand=True)
-    canvas1.create_image(0,0,image=bg,anchor="nw")
-
-    label = tk.Label(text = "Username")
-    label.pack()
-    entry1 = tk.Entry()
-    entry1.pack()
-    label = tk.Label(text = "Password")
-    label.pack()
-    entry2 = tk.Entry(show='*')
-    entry2.pack()
-    button = tk.Button(text= "Login", background= "red", foreground="white",command=lambda: checkLogin(entry1.get(),entry2.get(), window))    #testing user input boxes: command=lambda: print(entry1.get()," ",entry2.get())
-    button.pack()
-
-
-    window.mainloop()
-
-
-
-
-    homePage()
-
-    window.mainloop()
+    main()
