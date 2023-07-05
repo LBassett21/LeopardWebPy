@@ -120,8 +120,11 @@ class app:
     def login(self):
         for i in self.master.winfo_children():
             i.destroy()
+        bg = PhotoImage(file="banner.png")
         self.frame1 = Frame(self.master, width=300, height=300)
         self.frame1.pack()
+        label1 = Label(self.frame1, image=bg)
+        label1.pack()
         self.reg_txt = tk.Label(self.frame1, text='Welcome to Leopardweb')
         self.reg_txt.pack()
         entry1 = Entry()
