@@ -1,3 +1,8 @@
+import sqlite3
+db = sqlite3.connect('assignment3.db')
+cursor = db.cursor()
+
+
 class user:
     def __init__(self, f, l, ID):
         self.firstname = f

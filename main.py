@@ -5,6 +5,11 @@ from PIL import ImageTk,Image
 import webview
 import database
 import sqlite3
+from admin import Admin
+from student import student
+from instructor import instructor
+import database
+
 
 # creates sql databases called courses.db and userinfo.db on the local dir
 coursesdb = sqlite3.connect("courses.db")
@@ -85,6 +90,7 @@ class app:
         self.login_btn = Button(self.frame1, text="Login", command= lambda: self.checkLogin(str(entry1), str(entry2)))
         self.login_btn.pack()
 
+
     def register(self):
         for i in self.master.winfo_children():
             i.destroy()
@@ -130,6 +136,13 @@ class app:
         self.login_btn.pack()
         self.login_btn = tk.Button(self.frame2, text="View Diploma Name", command=lambda: self.login)
         self.login_btn.pack()
+
+    def registratation(self):
+        for i in self.master.winfo_children():
+            i.destroy()
+            self.frame5 = Frame(self.master, width=300, height=300)
+            self.frame5.pack()
+            # self.button = tk.Button(self.frame5, text= "show courses", command= lambda: )
 
     def financial(self):
         for i in self.master.winfo_children():
@@ -181,6 +194,7 @@ class app:
             i.destroy()
         self.frame5 = Frame(self.master, width=300, height=300)
         self.frame5.pack()
+
         img = ImageTk.PhotoImage(Image.open("banner.png"))
         self.banner = tk.Label(self.frame5, image = img)
         self.banner.pack()
@@ -215,9 +229,9 @@ class app:
         self.reg_txt3.pack()
         self.login_btn = Button(self.frame3, text="Home", command=lambda: self.login())
         self.login_btn.pack()
-        self.login_btn = Button(self.frame3, text="Financial Aid", command=lambda: self.financial())
-        self.login_btn.pack()
         self.login_btn = Button(self.frame3, text="Personal Information", command=lambda: self.personalInfo())
+        self.login_btn.pack()
+        self.login_btn = Button(self.frame3, text="Financial Aid", command=lambda: self.financial())
         self.login_btn.pack()
         self.login_btn = Button(self.frame3, text="Student", command=lambda: self.student())
         self.login_btn.pack()
@@ -234,6 +248,7 @@ class app:
 def main():
     # my_w = tk.Tk()
     # my_w.mainloop()
+
     root = Tk()
     app(root)
     root.mainloop()
