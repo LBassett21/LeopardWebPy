@@ -3,7 +3,7 @@ from tkinter import Label
 from tkinter import *
 from PIL import ImageTk,Image
 import webview
-import database
+# import database
 import sqlite3
 from admin import Admin
 from student import student
@@ -14,6 +14,8 @@ import database
 # creates sql databases called courses.db and userinfo.db on the local dir
 coursesdb = sqlite3.connect("courses.db")
 userinfodb = sqlite3.connect("userinfo.db")
+db = sqlite3.connect('assignment3.db')
+cursor = db.cursor()
 
 coursesCur = coursesdb.cursor()
 userinfoCur=userinfodb.cursor()
@@ -76,6 +78,7 @@ class app:
     def login(self):
         for i in self.master.winfo_children():
             i.destroy()
+
         bg = PhotoImage(file="banner.png")
         self.frame1 = Frame(self.master, width=300, height=300)
         self.frame1.pack()
@@ -87,8 +90,9 @@ class app:
         entry1.pack()
         entry2 = Entry()
         entry2.pack()
-        self.login_btn = Button(self.frame1, text="Login", command= lambda: self.checkLogin(str(entry1), str(entry2)))
+        self.login_btn = Button(self.frame1, text="Login", command=lambda: self.checkLogin(entry1.get(), entry2.get()))
         self.login_btn.pack()
+
 
 
     def register(self):
@@ -218,15 +222,15 @@ class app:
 
         label = Label(text="Main Page")
         label.pack()
-        bg = ImageTk.PhotoImage(Image.open("banner.png"))
-
         self.frame3 = Frame(self.master)
         self.frame3.pack()
+        bg=Image.open("banner.png")
+        bg = ImageTk.PhotoImage(bg)
+        label = Label(self.master, image = bg)
+        label.pack()
         canvas1 = Canvas(self.master, width=1100, height=400)
         canvas1.pack()
         canvas1.create_image(0, 0, image=bg, anchor="nw")
-        self.reg_txt3 = Label(self.frame3, text='register')
-        self.reg_txt3.pack()
         self.login_btn = Button(self.frame3, text="Home", command=lambda: self.login())
         self.login_btn.pack()
         self.login_btn = Button(self.frame3, text="Personal Information", command=lambda: self.personalInfo())
@@ -235,14 +239,45 @@ class app:
         self.login_btn.pack()
         self.login_btn = Button(self.frame3, text="Student", command=lambda: self.student())
         self.login_btn.pack()
-    def checkLogin(self, un,pw):
-        userinfoCur.execute("SELECT username and password FROM users WHERE username = ? and password = ?", (un, pw))
-        found = userinfoCur.fetchone()
-        if not found:
-            print("Correct username & password")
+    def checkLogin(self, username, password):
+
+        print(username)
+        print(password)
+
+        cursor.execute("""SELECT * FROM STUDENT""")
+        debug = cursor.fetchall()
+        print(debug)
+
+
+        cursor.execute("""SELECT * FROM admin WHERE EMAIL=? AND ID=?""", (username, password))
+        admin_data = cursor.fetchone()
+
+        cursor.execute("""SELECT * FROM instructor WHERE EMAIL=? AND ID=?""", (username, password))
+        instructor_data = cursor.fetchone()
+
+        cursor.execute("""SELECT * FROM student WHERE EMAIL=? AND ID=?""", (username, password))
+        student_data = cursor.fetchone()
+
+
+
+        if admin_data:
+            print("Welcome, Admin!")
+            access_granted = True
+            return Admin(*admin_data)
+        elif instructor_data:
+            print("Welcome, Instructor!")
+            access_granted = True
+            return instructor(*instructor_data)
+        elif student_data:
+            print("Welcome, Student!")
+            access_granted = True
             self.home()
+
         else:
-            print("WRONG")
+            print("Incorrect username or password, please try again")
+
+
+
 
 
 def main():

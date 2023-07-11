@@ -108,3 +108,13 @@ class student(user):
              print(f"CRN: {crn} | Course: {title} | Time: {start_time}-{end_time}")
 
          print("----------------------")
+
+# Converts the 24 hour format to 12 hour format for schedule printing
+def convert_time_format(time):
+    hours, minutes = time.split(':')
+    period = 'AM' if int(hours) < 12 else 'PM'
+
+    if int(hours) > 12:
+        hours = str(int(hours) - 12)
+
+    return f"{hours}:{minutes} {period}"
