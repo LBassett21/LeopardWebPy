@@ -93,14 +93,80 @@ class app:
         self.login_btn = Button(self.frame1, text="Login", command=lambda: self.checkLogin(entry1.get(), entry2.get()))
         self.login_btn.pack()
 
+    def adminHome(self):
+        for i in self.master.winfo_children():
+            i.destroy()
+        self.frame2 = Frame(self.master, width=300, height=300)
+        self.frame2.pack()
+        self.reg_txt2 = tk.Label(self.frame2, text='Admin Homepage')
+        self.reg_txt2.pack()
+        self.login_btn = tk.Button(self.frame2, text="Go to Login", command=lambda: self.login)
+        self.login_btn.pack()
+        self.login_btn = tk.Button(self.frame2, text="Print Roster", command=lambda: self.adminRoster())
+        self.login_btn.pack()
+
+    def adminRoster(self):
+        for i in self.master.winfo_children():
+            i.destroy()
+        self.frame2 = Frame(self.master, width=300, height=300)
+        self.frame2.pack()
+        self.reg_txt2 = tk.Label(self.frame2, text='~~~~Courses~~~~')
+        self.reg_txt2.pack()
+        self.login_btn = tk.Button(self.frame2, text="Home", command=lambda: self.adminHome())
+        self.login_btn.pack()
 
 
+        cursor.execute("""SELECT * FROM courses""")
+        course_info = cursor.fetchall()
+        x = 1
+        for row in course_info:
+            self.label = tk.Label(self.frame2, text = row)
+            self.label.pack()
+            print(row)
+            x +=1
+
+
+    def studentHome(self):
+        for i in self.master.winfo_children():
+            i.destroy()
+
+        label = Label(text="Main Page")
+        label.pack()
+        self.frame3 = Frame(self.master)
+        self.frame3.pack()
+        bg = Image.open("banner.png")
+        bg = ImageTk.PhotoImage(bg)
+        label = Label(self.master, image=bg)
+        label.pack()
+        canvas1 = Canvas(self.master, width=1100, height=400)
+        canvas1.pack()
+        canvas1.create_image(0, 0, image=bg, anchor="nw")
+
+        self.login_btn = Button(self.frame3, text="Home", command=lambda: self.login())
+        self.login_btn.pack()
+        self.login_btn = Button(self.frame3, text="Personal Information", command=lambda: self.personalInfo())
+        self.login_btn.pack()
+        self.login_btn = Button(self.frame3, text="Financial Aid", command=lambda: self.financial())
+        self.login_btn.pack()
+        self.login_btn = Button(self.frame3, text="Student", command=lambda: self.student())
+        self.login_btn.pack()
+
+
+    def instructorHome(self):
+        for i in self.master.winfo_children():
+            i.destroy()
+        self.frame2 = Frame(self.master, width=300, height=300)
+        self.frame2.pack()
+        self.reg_txt2 = tk.Label(self.frame2, text='Welcome Instructor')
+        self.reg_txt2.pack()
+        self.login_btn = tk.Button(self.frame2, text="Go to Login", command=lambda: self.login)
+        self.login_btn.pack()
     def register(self):
         for i in self.master.winfo_children():
             i.destroy()
         self.frame2 = Frame(self.master, width=300, height=300)
         self.frame2.pack()
-        self.reg_txt2 = tk.Label(self.frame2, text='register')
+        self.reg_txt2 = tk.Label(self.frame2, text ='register')
         self.reg_txt2.pack()
         self.login_btn = tk.Button(self.frame2, text="Go to Login", command=lambda: self.login)
         self.login_btn.pack()
@@ -231,6 +297,7 @@ class app:
         canvas1 = Canvas(self.master, width=1100, height=400)
         canvas1.pack()
         canvas1.create_image(0, 0, image=bg, anchor="nw")
+
         self.login_btn = Button(self.frame3, text="Home", command=lambda: self.login())
         self.login_btn.pack()
         self.login_btn = Button(self.frame3, text="Personal Information", command=lambda: self.personalInfo())
@@ -263,15 +330,28 @@ class app:
         if admin_data:
             print("Welcome, Admin!")
             access_granted = True
+            self.adminHome()
+            print(admin_data)
+            Admin(admin_data[0],admin_data[1],admin_data[2],admin_data[3],admin_data[4],admin_data[5])
+
             return Admin(*admin_data)
         elif instructor_data:
             print("Welcome, Instructor!")
             access_granted = True
+            self.instructorHome()
+            print(instructor_data)
+            instructor(instructor_data[0],instructor_data[1],instructor_data[2],instructor_data[3],instructor_data[4],instructor_data[5],instructor_data[6])
+            #instructor()
+
             return instructor(*instructor_data)
         elif student_data:
             print("Welcome, Student!")
             access_granted = True
-            self.home()
+            loggedinUser = student(*student_data)
+            print(student_data)
+            student(student_data[0], student_data[1],student_data[2],student_data[3],student_data[4],student_data[5])
+            self.studentHome()
+            return student(*student_data)
 
         else:
             print("Incorrect username or password, please try again")
