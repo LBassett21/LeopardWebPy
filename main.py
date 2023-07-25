@@ -5,6 +5,8 @@ from PIL import ImageTk,Image
 import webview
 # import database
 import sqlite3
+
+import admin
 from admin import Admin
 from student import student
 from instructor import instructor
@@ -104,6 +106,41 @@ class app:
         self.login_btn.pack()
         self.login_btn = tk.Button(self.frame2, text="Print Roster", command=lambda: self.adminRoster())
         self.login_btn.pack()
+        self.login_btn = tk.Button(self.frame2, text="Add New Student", command=lambda: self.adminNewStudent())
+        self.login_btn.pack()
+
+    def adminNewStudent(self):
+        for i in self.master.winfo_children():
+            i.destroy()
+        self.frame2 = Frame(self.master, width=300, height=300)
+        self.frame2.pack()
+        self.reg_txt2 = tk.Label(self.frame2, text='~~~~New Student~~~~')
+        self.reg_txt2.pack()
+        self.login_btn = tk.Button(self.frame2, text="Home", command=lambda: self.adminHome())
+        self.login_btn.pack()
+        #ID, first_name, last_name, expectedgradyear, major, email
+        label = tk.Label(self.frame2, text="ID")
+        label.pack()
+        ID = tk.Entry(self.frame2)
+        ID.pack()
+        label = tk.Label(self.frame2, text="First Name")
+        label.pack()
+        first = tk.Entry(self.frame2)
+        first.pack()
+        label = tk.Label(self.frame2, text="Last Name")
+        label.pack()
+        last = tk.Entry(self.frame2)
+        last.pack()
+        year = tk.Entry(self.frame2)
+        year.pack()
+        major = tk.Entry(self.frame2)
+        major.pack()
+        email = tk.Entry(self.frame2)
+        email.pack()
+
+        button = tk.Button(self.frame2, text= "Add New Student",command=lambda:admin.new_student(ID.get(),first.get(),last.get(),year.get(),major.get,email.get()))
+        button.pack()
+
 
     def adminRoster(self):
         for i in self.master.winfo_children():
