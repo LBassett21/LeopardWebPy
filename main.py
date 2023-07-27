@@ -22,6 +22,7 @@ cursor = db.cursor()
 coursesCur = coursesdb.cursor()
 userinfoCur=userinfodb.cursor()
 
+
 #
 #
 #
@@ -74,7 +75,9 @@ userinfoCur=userinfodb.cursor()
 class app:
     def __init__(self, master):
         self.master = master
-        self.master.geometry("200x200")
+        width = self.master.winfo_screenwidth()
+        height = self.master.winfo_screenheight()
+        self.master.geometry("%dx%d" %(width,height))
         self.login()
 
     def login(self):
@@ -82,10 +85,10 @@ class app:
             i.destroy()
 
         bg = PhotoImage(file="banner.png")
-        self.frame1 = Frame(self.master, width=300, height=300)
+        self.frame1 = Frame(self.master)
         self.frame1.pack()
         label1 = Label(self.frame1, image=bg)
-        label1.pack()
+        label1.pack(side="bottom")
         self.reg_txt = tk.Label(self.frame1, text='Welcome to Leopardweb')
         self.reg_txt.pack()
         entry1 = Entry()
@@ -231,8 +234,13 @@ class app:
         self.frame2.pack()
         self.reg_txt2 = tk.Label(self.frame2, text='Welcome Instructor')
         self.reg_txt2.pack()
-        self.login_btn = tk.Button(self.frame2, text="Go to Login", command=lambda: self.login)
+        self.login_btn = tk.Button(self.frame2, text='Personal Information')
         self.login_btn.pack()
+        self.login_btn = tk.Button(self.frame2, text='Instructor', command=lambda: self.instructor())
+        self.login_btn.pack()
+        self.login_btn = tk.Button(self.frame2, text="Go to Login", command=lambda: self.login())
+        self.login_btn.pack()
+
     def register(self):
         for i in self.master.winfo_children():
             i.destroy()
@@ -331,6 +339,25 @@ class app:
         self.login_btn = tk.Button(self.frame5, text="NSC Alumni MyHub", command=lambda: webview.start())
         self.login_btn.pack()
 
+    def instructor(self):
+        for i in self.master.winfo_children():
+            i.destroy()
+        self.frame6 = Frame(self.master, width=300, height=300)
+        self.frame6.pack()
+        self.reg_txt2 = tk.Label(self.frame6, text='Instructor Information')
+        self.reg_txt2.pack()
+        self.login_btn = tk.Button(self.frame6, text="Print Schedule", command=lambda: self.instructorHome())
+        self.login_btn.pack()
+        self.login_btn = tk.Button(self.frame6, text="Print Class List", command=lambda: self.instructorHome())
+        self.login_btn.pack()
+        self.login_btn = tk.Button(self.frame6, text="Search Course", command=lambda: self.instructorHome())
+        self.login_btn.pack()
+        self.login_btn = tk.Button(self.frame6, text="Add / Drop Course", command=lambda: self.instructorHome())
+        self.login_btn.pack()
+        self.login_btn = tk.Button(self.frame6, text="Go to home", command=lambda: self.instructorHome())
+        self.login_btn.pack()
+
+
     def personalInfo(self):
         for i in self.master.winfo_children():
             i.destroy()
@@ -413,7 +440,6 @@ class app:
             self.instructorHome()
             print(instructor_data)
             instructor(instructor_data[0],instructor_data[1],instructor_data[2],instructor_data[3],instructor_data[4],instructor_data[5],instructor_data[6])
-            #instructor()
 
             return instructor(*instructor_data)
         elif student_data:
