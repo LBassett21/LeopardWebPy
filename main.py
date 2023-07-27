@@ -108,6 +108,41 @@ class app:
         self.login_btn.pack()
         self.login_btn = tk.Button(self.frame2, text="Add New Student", command=lambda: self.adminNewStudent())
         self.login_btn.pack()
+        self.login_btn = tk.Button(self.frame2, text="Modify A User", command=lambda: self.adminModStudent())
+        self.login_btn.pack()
+
+    def adminModStudent(self):
+        for i in self.master.winfo_children():
+            i.destroy()
+        self.frame2 = Frame(self.master, width=300, height=300)
+        self.frame2.pack()
+        label = tk.Label(self.frame2, text="Enter the ID of the user that you would like to edit")
+        label.pack()
+        entry = tk.Entry(self.frame2)
+        entry.pack()
+        button = tk.Button(self.frame2, text = "Continue", command =lambda: [Admin.modUserAdmin(self, entry.get()), self.adminModStudent2()] )
+        button.pack()
+
+    def adminModStudent2(self):
+        for i in self.master.winfo_children():
+            i.destroy()
+        self.frame2 = Frame(self.master, width=300, height=300)
+        self.frame2.pack()
+        self.label = tk.Label(self.frame2, text = "")
+        self.button = tk.Radiobutton(text= "ID Number", value=1)
+        self.button.pack()
+        self.button = tk.Radiobutton(text= "First Name", value= 2)
+        self.button.pack()
+        self.button = tk.Radiobutton(text="Last Name", value =3 )
+        self.button.pack()
+        self.button = tk.Radiobutton(text="Title", value=4)
+        self.button.pack()
+        self.button = tk.Radiobutton(text="Office", value =5)
+        self.button.pack()
+        self.button = tk.Radiobutton(text="Email", value=6)
+        self.button.pack()
+        self.button = tk.Radiobutton(text="Last Name", value=7)
+        self.button.pack()
 
     def adminNewStudent(self):
         for i in self.master.winfo_children():

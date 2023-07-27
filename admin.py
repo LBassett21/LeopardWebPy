@@ -124,6 +124,46 @@ class Admin(user):
             print(row)
 
     # modify user based on selected ID
+
+    def modUserAdmin(self, ID):
+        print("Enter the ID of the user that you would like to edit")
+        editID = ID
+        cursor.execute("""SELECT ID FROM admin WHERE ID=?""", (editID,))
+        admin_check = cursor.fetchone()
+        return admin_check
+
+    def modUser2(self,input, editID):
+        choice = input
+        match choice:
+            case "1":
+                newID = input("Please enter a new ID number: ")
+                cursor.execute("""UPDATE admin SET ID = ? WHERE ID = ?""", (newID, editID,))
+                db.commit()
+            case "2":
+                newFN = input("Please enter a new First name: ")
+                cursor.execute("""UPDATE admin SET NAME = ? WHERE ID = ?""", (newFN, editID,))
+                db.commit()
+            case "3":
+                newLN = input("Please enter a new Last name: ")
+                cursor.execute("""UPDATE admin SET SURNAME = ? WHERE ID = ?""", (newLN, editID,))
+                db.commit()
+            case "4":
+                newTitle = input("Please enter a new Title: ")
+                cursor.execute("""UPDATE admin SET TITLE = ? WHERE ID = ?""", (newTitle, editID,))
+                db.commit()
+            case "5":
+                newOffice = input("Please enter a new Office: ")
+                cursor.execute("""UPDATE admin SET OFFICE = ? WHERE ID = ?""", (newOffice, editID,))
+                db.commit()
+            case "6":
+                newEmail = input("Please enter a new Email: ")
+                cursor.execute("""UPDATE admin SET EMAIL = ? WHERE ID = ?""", (newEmail, editID,))
+                db.commit()
+            case "7":
+                print("Exiting...")
+            case _:
+                print("Invalid input!")
+
     def modifyUser(self):
         print("Enter the ID of the user that you would like to edit")
         editID = input("ID Number: ")
