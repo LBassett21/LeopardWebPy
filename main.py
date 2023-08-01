@@ -105,13 +105,19 @@ class app:
         self.frame2.pack()
         self.reg_txt2 = tk.Label(self.frame2, text='Admin Homepage')
         self.reg_txt2.pack()
-        self.login_btn = tk.Button(self.frame2, text="Go to Login", command=lambda: self.login)
+        self.login_btn = tk.Button(self.frame2, text="Go to Login", command=lambda: self.login())
         self.login_btn.pack()
-        self.login_btn = tk.Button(self.frame2, text="Print Roster", command=lambda: self.adminRoster())
+        self.login_btn = tk.Button(self.frame2, text="Print Course Roster", command=lambda: self.adminRoster())
         self.login_btn.pack()
-        self.login_btn = tk.Button(self.frame2, text="Add New Student", command=lambda: self.adminNewStudent())
+        self.login_btn = tk.Button(self.frame2, text="Add/Remove User", command=lambda: self.adminNewStudent())
         self.login_btn.pack()
-        self.login_btn = tk.Button(self.frame2, text="Modify A User", command=lambda: self.adminModStudent())
+        self.login_btn = tk.Button(self.frame2, text="Add Course", command=lambda: Admin.addRemoveCourse(self, True))
+        self.login_btn.pack()
+        self.login_btn = tk.Button(self.frame2, text="Remove Course", command=lambda: Admin.addRemoveCourse(self, False))
+        self.login_btn.pack()
+        self.login_btn = tk.Button(self.frame2, text="Modify A User", command=lambda: Admin.modifyUser(self))
+        self.login_btn.pack()
+        self.login_btn = tk.Button(self.frame2, text="Print All Users", command=lambda: admin.print_database())
         self.login_btn.pack()
 
     def adminModStudent(self):
@@ -169,10 +175,16 @@ class app:
         label.pack()
         last = tk.Entry(self.frame2)
         last.pack()
+        label = tk.Label(self.frame2, text="Graduation Year")
+        label.pack()
         year = tk.Entry(self.frame2)
         year.pack()
+        label = tk.Label(self.frame2, text="Major")
+        label.pack()
         major = tk.Entry(self.frame2)
         major.pack()
+        label = tk.Label(self.frame2, text="Email")
+        label.pack()
         email = tk.Entry(self.frame2)
         email.pack()
 
@@ -180,16 +192,16 @@ class app:
         button.pack()
 
 
+# Goes to the Page to print all the courses in the database
     def adminRoster(self):
         for i in self.master.winfo_children():
             i.destroy()
         self.frame2 = Frame(self.master, width=300, height=300)
         self.frame2.pack()
-        self.reg_txt2 = tk.Label(self.frame2, text='~~~~Courses~~~~')
-        self.reg_txt2.pack()
         self.login_btn = tk.Button(self.frame2, text="Home", command=lambda: self.adminHome())
         self.login_btn.pack()
-
+        self.reg_txt2 = tk.Label(self.frame2, text='~~~~Courses~~~~')
+        self.reg_txt2.pack()
 
         cursor.execute("""SELECT * FROM courses""")
         course_info = cursor.fetchall()

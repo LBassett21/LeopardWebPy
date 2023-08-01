@@ -393,6 +393,7 @@ def new_student(ID, first_name, last_name, expectedgradyear, major, email):
 
 # Print's the database at start of program
 def print_database():
+
     admin_objects = add_admin()
     student_objects = add_student()
     instructor_object = add_instructor()
