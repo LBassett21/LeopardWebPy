@@ -78,17 +78,17 @@ class Admin(user):
                 print("User not found in the database")
 
     # Add/remove course. If ar == true, add course, else remove course
-    def addRemoveCourse(self, ar):
+    def addRemoveCourse(self, ar, CRN, Title, dept,Time, Days, Semester,Year, credit_num, remCRN):
         if ar:
-            print("Please enter the following information")
-            crn = input("CRN: ")
-            title = input("Title: ")
-            department = input("Department: ")
-            time = input("Time: ")
-            days = input("Day(s): ")
-            semester = input("Semester: ")
-            year = input("Year: ")
-            creditnum = input("Credits: ")
+
+            crn = int(CRN)
+            title = str(Title)
+            department = str(dept)
+            time = str(Time)
+            days = str(Days)
+            semester = str(Semester)
+            year = int(Year)
+            creditnum = int(credit_num)
             cursor.execute("""SELECT CRN FROM courses WHERE CRN=?""", (crn,))
             existing_crn = cursor.fetchone()
 
@@ -101,19 +101,15 @@ class Admin(user):
                 db.commit()
         else:
             print("Course Removal - Please enter the following information")
-            removecrn = input("Course CRN: ")
-            cursor.execute("""SELECT ID FROM courses WHERE ID=?""", (removecrn,))
+            removecrn = int(remCRN)
+            cursor.execute("""SELECT CRN FROM courses WHERE CRN=?""", (removecrn,))
             courses_check = cursor.fetchone()
             if courses_check:
-                confirm = input(f"Are you sure you want ro remove CRN: {removecrn}? (Yes/No): ")
-                if confirm == "Yes":
-                    cursor.execute("""DELETE FROM courses WHERE CRN=?""", (removecrn,))
-                    db.commit()
-                    print("Course removed from the courses table.")
-                elif confirm == "No":
-                    print("Exiting...")
-                else:
-                    print("Invalid input!")
+                cursor.execute("""DELETE FROM courses WHERE CRN=?""", (removecrn,))
+                db.commit()
+                print("Course removed from the courses table.")
+            else:
+                print("Invalid input!")
 
     # prints all courses
     def printRoster(self):
