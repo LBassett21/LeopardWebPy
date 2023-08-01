@@ -188,7 +188,11 @@ class app:
         email = tk.Entry(self.frame2)
         email.pack()
 
-        button = tk.Button(self.frame2, text= "Add New Student",command=lambda:admin.new_student(ID.get(),first.get(),last.get(),year.get(),major.get,email.get()))
+
+
+
+
+        button = tk.Button(self.frame2, text= "Add New Student",command=lambda:[admin.new_student(ID.get(), first.get(), last.get(), year.get(), major.get(), email.get()), self.adminHome()])
         button.pack()
 
 

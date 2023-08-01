@@ -380,8 +380,17 @@ def new_instructor(ID, first_name, last_name, title, yearofhire, department, ema
 
 # Adds a new student to the database
 def new_student(ID, first_name, last_name, expectedgradyear, major, email):
+    ID = int(ID)
+    first_name = str(first_name)
+    last_name = str(last_name)
+    expectedgradyear = int(expectedgradyear)
+    major = str(major)
+    email = str(email)
+
     cursor.execute("""SELECT ID FROM student WHERE ID=?""", (ID,))
     existing_id = cursor.fetchone()
+
+
 
     if existing_id:
         print("Error: User with ID", ID, "already exists.")
