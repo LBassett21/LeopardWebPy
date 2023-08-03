@@ -25,56 +25,6 @@ userinfoCur=userinfodb.cursor()
 TRANSCRIPTOPTIONBOX1 = ["All Levels", "Undergraduate"]
 TRANSCRIPTOPTIONBOX2 = ["Self Service"]
 
-
-#
-#
-#
-#
-# label = tk.Label(text="Enter Username & Password")
-# label.pack()
-# bg = ImageTk.PhotoImage(Image.open("wit-background.jpg"))
-# canvas1 = Canvas(my_w, width=400, height=400)
-# canvas1.pack(fill="both", expand=True)
-# canvas1.create_image(0, 0, image=bg, anchor="nw")
-#
-# label = tk.Label(text="Username")
-# label.pack()
-# entry1 = tk.Entry()
-# entry1.pack()
-# label = tk.Label(text="Password")
-# label.pack()
-# entry2 = tk.Entry(show='*')
-# entry2.pack()
-# button = tk.Button(text="Login", background="red", foreground="white",
-#                    command=lambda:checkLogin(entry1.get(), entry2.get()))  # testing user input boxes: command=lambda: print(entry1.get()," ",entry2.get())
-# button.pack()
-#
-#
-#
-# def mainPage():
-#     my_w_child = Toplevel(my_w)
-#     label = tk.Label(text = "Main Page")
-#     label.pack()
-#     bg = ImageTk.PhotoImage(Image.open("banner.png"))
-#     canvas1 = Canvas(my_w_child, width=1100,height=400)
-#
-#     canvas1.create_image(0,0,image=bg, anchor="nw")
-#     canvas1.pack(fill="both", expand=True)
-#     personalInfo = tk.Button(my_w_child, text = "Personal Information", command=print("Personal Info Tab"))
-#     personalInfo.pack()
-#
-#     student = tk.Button(my_w_child, text="Student", command=print("student")
-#
-#     )
-#     student.pack()
-#     financial = tk.Button(my_w_child, text="Financial Aid", command=print("Financial Aid")
-#
-#     )
-#     financial.pack()
-#
-#     my_w_child.mainloop()
-
-
 class app:
     def __init__(self, master):
         self.master = master
@@ -87,11 +37,11 @@ class app:
         for i in self.master.winfo_children():
             i.destroy()
 
-        bg = PhotoImage(file="banner.png")
+        self.bg = PhotoImage(file="banner.png")
         self.frame1 = Frame(self.master)
         self.frame1.pack()
-        label1 = Label(self.frame1, image=bg)
-        label1.pack(side="bottom")
+        label1 = Label(self.frame1, image=self.bg)
+        label1.pack()
         self.reg_txt = tk.Label(self.frame1, text='Welcome to Leopardweb')
         self.reg_txt.pack()
         entry1 = Entry()
