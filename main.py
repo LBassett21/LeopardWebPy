@@ -96,11 +96,7 @@ class app:
         button_frame = tk.Frame(self.frame2)
         button_frame.pack(fill="x", padx=10)
 
-        personal_info_btn = Button(button_frame, text="Personal Information", bg="grey",
-                                   command=lambda: self.personalInfo())
-        personal_info_btn.pack(side="left")
-
-        student_btn = Button(button_frame, text="Instructor", bg="grey", command=lambda: self.instructor())
+        student_btn = Button(button_frame, text="Admin", bg="grey", command=lambda: self.adminHome())
         student_btn.pack(side="left")
 
         blue_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (0, 51, 102), height=2)
@@ -108,6 +104,9 @@ class app:
 
         exit_btn = Button(self.frame2, text="EXIT", command=lambda: self.login())
         exit_btn.pack(anchor="e", padx=10, pady=10)
+
+        home_btn = Button(self.frame2, text="Main Menu", command=lambda: self.adminHome())
+        home_btn.pack(anchor="e", padx=10)
 
         main_menu_label = tk.Label(self.frame2, text="Main Menu", font=("Roboto", 16))
         main_menu_label.pack(anchor="w", padx=3, pady=15)
@@ -150,11 +149,7 @@ class app:
         button_frame = tk.Frame(self.frame2)
         button_frame.pack(fill="x", padx=10)
 
-        personal_info_btn = Button(button_frame, text="Personal Information", bg="grey",
-                                   command=lambda: self.personalInfo())
-        personal_info_btn.pack(side="left")
-
-        student_btn = Button(button_frame, text="Instructor", bg="grey", command=lambda: self.instructor())
+        student_btn = Button(button_frame, text="Admin", bg="grey", command=lambda: self.adminHome())
         student_btn.pack(side="left")
 
         blue_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (0, 51, 102), height=2)
@@ -162,6 +157,9 @@ class app:
 
         exit_btn = Button(self.frame2, text="EXIT", command=lambda: self.login())
         exit_btn.pack(anchor="e", padx=10, pady=10)
+
+        home_btn = Button(self.frame2, text="Main Menu", command=lambda: self.adminHome())
+        home_btn.pack(anchor="e", padx=10)
 
         main_menu_label = tk.Label(self.frame2, text="Modify Student", font=("Roboto", 16))
         main_menu_label.pack(anchor="w", padx=3, pady=15)
@@ -214,12 +212,8 @@ class app:
         button_frame = tk.Frame(self.frame2)
         button_frame.pack(fill="x", padx=10)
 
-        personal_info_btn = Button(button_frame, text="Personal Information", bg="grey",
-                                   command=lambda: self.personalInfo())
-        personal_info_btn.pack(side="left")
-
-        student_btn = Button(button_frame, text="Instructor", bg="grey", command=lambda: self.instructor())
-        student_btn.pack(side="left")
+        admin_btn = Button(button_frame, text="Admin", bg="grey", command=lambda: self.adminHome())
+        admin_btn.pack(side="left")
 
         blue_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (0, 51, 102), height=2)
         blue_bar.pack(fill="x")
@@ -227,11 +221,13 @@ class app:
         exit_btn = Button(self.frame2, text="EXIT", command=lambda: self.login())
         exit_btn.pack(anchor="e", padx=10, pady=10)
 
+        home_btn = Button(self.frame2, text="Main Menu", command=lambda: self.adminHome())
+        home_btn.pack(anchor="e", padx=10)
+
         main_menu_label = tk.Label(self.frame2, text="Add Course", font=("Roboto", 16))
         main_menu_label.pack(anchor="w", padx=3, pady=15)
         yellow_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (204, 204, 0), height=3)
         yellow_bar.pack(fill="x")
-
 
         label = tk.Label(self.frame2, text= "CRN: ")
         label.pack()
@@ -276,7 +272,6 @@ class app:
         for i in self.master.winfo_children():
             i.destroy()
 
-
         self.frame2 = Frame(self.master)
         self.frame2.pack(fill=tk.BOTH, expand=True)
 
@@ -288,18 +283,17 @@ class app:
         button_frame = tk.Frame(self.frame2)
         button_frame.pack(fill="x", padx=10)
 
-        personal_info_btn = Button(button_frame, text="Personal Information", bg="grey",
-                                   command=lambda: self.personalInfo())
-        personal_info_btn.pack(side="left")
-
-        student_btn = Button(button_frame, text="Admin", bg="grey", command=lambda: self.adminHome())
-        student_btn.pack(side="left")
+        admin_btn = Button(button_frame, text="Admin", bg="grey", command=lambda: self.adminHome())
+        admin_btn.pack(side="left")
 
         blue_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (0, 51, 102), height=2)
         blue_bar.pack(fill="x")
 
         exit_btn = Button(self.frame2, text="EXIT", command=lambda: self.login())
         exit_btn.pack(anchor="e", padx=10, pady=10)
+
+        home_btn = Button(self.frame2, text="Main Menu", command=lambda: self.adminHome())
+        home_btn.pack(anchor="e", padx=10)
 
         main_menu_label = tk.Label(self.frame2, text="Remove Course", font=("Roboto", 16))
         main_menu_label.pack(anchor="w", padx=3, pady=15)
@@ -332,10 +326,6 @@ class app:
         button_frame = tk.Frame(self.frame2)
         button_frame.pack(fill="x", padx=10)
 
-        personal_info_btn = Button(button_frame, text="Personal Information", bg="grey",
-                                   command=lambda: self.personalInfo())
-        personal_info_btn.pack(side="left")
-
         student_btn = Button(button_frame, text="Admin", bg="grey", command=lambda: self.adminHome())
         student_btn.pack(side="left")
 
@@ -345,7 +335,10 @@ class app:
         exit_btn = Button(self.frame2, text="EXIT", command=lambda: self.login())
         exit_btn.pack(anchor="e", padx=10, pady=10)
 
-        main_menu_label = tk.Label(self.frame2, text="Remove Course", font=("Roboto", 16))
+        home_btn = Button(self.frame2, text="Main Menu", command=lambda: self.adminHome())
+        home_btn.pack(anchor="e", padx=10)
+
+        main_menu_label = tk.Label(self.frame2, text="Add New Student", font=("Roboto", 16))
         main_menu_label.pack(anchor="w", padx=3, pady=15)
         yellow_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (204, 204, 0), height=3)
         yellow_bar.pack(fill="x")
@@ -399,9 +392,6 @@ class app:
         button_frame = tk.Frame(self.frame2)
         button_frame.pack(fill="x", padx=10)
 
-        personal_info_btn = Button(button_frame, text="Personal Information", bg="grey",
-                                   command=lambda: self.personalInfo())
-        personal_info_btn.pack(side="left")
 
         student_btn = Button(button_frame, text="Admin", bg="grey", command=lambda: self.adminHome())
         student_btn.pack(side="left")
@@ -412,7 +402,10 @@ class app:
         exit_btn = Button(self.frame2, text="EXIT", command=lambda: self.login())
         exit_btn.pack(anchor="e", padx=10, pady=10)
 
-        main_menu_label = tk.Label(self.frame2, text="Remove Course", font=("Roboto", 16))
+        home_btn = Button(self.frame2, text="Main Menu", command=lambda: self.adminHome())
+        home_btn.pack(anchor="e", padx=10)
+
+        main_menu_label = tk.Label(self.frame2, text="Roster", font=("Roboto", 16))
         main_menu_label.pack(anchor="w", padx=3, pady=15)
         yellow_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (204, 204, 0), height=3)
         yellow_bar.pack(fill="x")
@@ -446,7 +439,7 @@ class app:
         button_frame.pack(fill="x", padx=10)
 
         personal_info_btn = Button(button_frame, text="Personal Information", bg="grey",
-                                   command=lambda: self.personalInfo())
+                                   command=lambda: self.studentPersonalInfo())
         personal_info_btn.pack(side="left")
 
         student_btn = Button(button_frame, text="Student", bg="grey", command=lambda: self.student())
@@ -461,21 +454,26 @@ class app:
         exit_btn = Button(self.frame3, text="EXIT", command=lambda: self.login())
         exit_btn.pack(anchor="e", padx=10, pady=10)
 
+        home_btn = Button(self.frame3, text="Main Menu", command=lambda: self.studentHome())
+        home_btn.pack(anchor="e", padx=10)
+
         main_menu_label = tk.Label(self.frame3, text="Main Menu", font=("Roboto", 16))
         main_menu_label.pack(anchor="w", padx=3, pady=15)
         yellow_bar = tk.Frame(self.frame3, bg="#%02x%02x%02x" %(204,204,0), height=3)
         yellow_bar.pack(fill="x")
 
-        personal_info_btn_bottom = Button(self.frame3, text="Personal Information", command=lambda: self.personalInfo())
+        personal_info_btn_bottom = Button(self.frame3, text="Personal Information", command=lambda: self.studentPersonalInfo())
         personal_info_btn_bottom.pack(anchor="w", padx=3, pady=2)
         personal_info_txt = "Update addresses, contact information or marital status; review name or social security number change information; Customize your directory profile."
         text_widget = tk.Label(self.frame3, text=personal_info_txt, font=("Roboto", 8))
         text_widget.pack(pady=(0, 5), anchor="w")
+
         student_btn_bottom = Button(self.frame3, text="Student", command=lambda: self.student())
         student_btn_bottom.pack(anchor="w", padx=3, pady=2)
         student_txt = "Apply for Admission, Register and View your academic records."
         text_widget = tk.Label(self.frame3, text=student_txt, font=("Roboto", 8))
         text_widget.pack(pady=(0,5), anchor="w")
+
         financial_aid_btn_bottom = Button(self.frame3, text="Financial Aid", command=lambda: self.financial())
         financial_aid_btn_bottom.pack(anchor="w", padx=3, pady=2)
         financial_aid_txt = "View Financial Aid Information."
@@ -502,7 +500,7 @@ class app:
         button_frame.pack(fill="x", padx=10)
 
         personal_info_btn = Button(button_frame, text="Personal Information", bg="grey",
-                                   command=lambda: self.personalInfo())
+                                   command=lambda: self.instructorPersonalInfo())
         personal_info_btn.pack(side="left")
 
         student_btn = Button(button_frame, text="Instructor", bg="grey", command=lambda: self.instructor())
@@ -514,12 +512,15 @@ class app:
         exit_btn = Button(self.frame2, text="EXIT", command=lambda: self.login())
         exit_btn.pack(anchor="e", padx=10, pady=10)
 
+        home_btn = Button(self.frame2, text="Main Menu", command=lambda: self.instructorHome())
+        home_btn.pack(anchor="e", padx=10)
+
         main_menu_label = tk.Label(self.frame2, text="Main Menu", font=("Roboto", 16))
         main_menu_label.pack(anchor="w", padx=3, pady=15)
         yellow_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (204, 204, 0), height=3)
         yellow_bar.pack(fill="x")
 
-        personal_info_btn_bottom = Button(self.frame2, text="Personal Information", command=lambda: self.personalInfo())
+        personal_info_btn_bottom = Button(self.frame2, text="Personal Information", command=lambda: self.instructorPersonalInfo())
         personal_info_btn_bottom.pack(anchor="w", padx=3, pady=2)
         personal_info_txt = "Update addresses, contact information or marital status; review name or social security number change information; Customize your directory profile."
         text_widget = tk.Label(self.frame2, text=personal_info_txt, font=("Roboto", 8))
@@ -527,13 +528,63 @@ class app:
 
         instructor_btn_bottom = Button(self.frame2, text="Instructor", command=lambda: self.instructor())
         instructor_btn_bottom.pack(anchor="w", padx=3, pady=2)
-        instructor_txt = "Apply for Admission, Register and View your academic records."
+        instructor_txt = "View schedule, Search courses, Print course roster."
         text_widget = tk.Label(self.frame2, text=instructor_txt, font=("Roboto", 8))
         text_widget.pack(pady=(0,5), anchor="w")
 
         blue2_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" %(0,51,102), height=2)
         blue2_bar.pack(fill="x")
 
+    def instructor(self):
+        for i in self.master.winfo_children():
+            i.destroy()
+
+        self.frame2 = Frame(self.master)
+        self.frame2.pack(fill=tk.BOTH, expand=True)
+
+        banner_image = Image.open("banner.png")
+        self.banner = ImageTk.PhotoImage(banner_image)
+        banner_label = tk.Label(self.frame2, image=self.banner)
+        banner_label.pack(anchor="nw")
+
+        button_frame = tk.Frame(self.frame2)
+        button_frame.pack(fill="x", padx=10)
+
+        personal_info_btn = Button(button_frame, text="Personal Information", bg="grey",
+                                   command=lambda: self.instructorPersonalInfo())
+        personal_info_btn.pack(side="left")
+
+        student_btn = Button(button_frame, text="Instructor", bg="grey", command=lambda: self.instructor())
+        student_btn.pack(side="left")
+
+        blue_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (0, 51, 102), height=2)
+        blue_bar.pack(fill="x")
+
+        exit_btn = Button(self.frame2, text="EXIT", command=lambda: self.login())
+        exit_btn.pack(anchor="e", padx=10, pady=10)
+
+        home_btn = Button(self.frame2, text="Main Menu", command=lambda: self.instructorHome())
+        home_btn.pack(anchor="e", padx=10)
+
+
+        main_menu_label = tk.Label(self.frame2, text="Instructor Menu", font=("Roboto", 16))
+        main_menu_label.pack(anchor="w", padx=3, pady=15)
+        yellow_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (204, 204, 0), height=3)
+        yellow_bar.pack(fill="x")
+
+        print_schedule_btn = Button(self.frame2, text="Print Schedule", command=lambda: self.instructorHome())
+        print_schedule_btn.pack()
+
+        print_roster_btn = Button(self.frame2, text="Print Class List", command=lambda: self.instructorHome())
+        print_roster_btn.pack()
+
+        search_course_btn = Button(self.frame2, text="Search Course", command=lambda: self.instructorHome())
+        search_course_btn.pack()
+
+        blue2_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" %(0,51,102), height=2)
+        blue2_bar.pack(fill="x")
+
+    # NEED TO ADD REGISTER FOR CLASS INFO HERE!!!!!!!!!!!!!!!!!!
     def register(self):
         for i in self.master.winfo_children():
             i.destroy()
@@ -550,10 +601,10 @@ class app:
         button_frame.pack(fill="x", padx=10)
 
         personal_info_btn = Button(button_frame, text="Personal Information", bg="grey",
-                                   command=lambda: self.personalInfo())
+                                   command=lambda: self.studentPersonalInfo())
         personal_info_btn.pack(side="left")
 
-        student_btn = Button(button_frame, text="Instructor", bg="grey", command=lambda: self.instructor())
+        student_btn = Button(button_frame, text="Student", bg="grey", command=lambda: self.student())
         student_btn.pack(side="left")
 
         blue_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (0, 51, 102), height=2)
@@ -591,10 +642,10 @@ class app:
         button_frame.pack(fill="x", padx=10)
 
         personal_info_btn = Button(button_frame, text="Personal Information", bg="grey",
-                                   command=lambda: self.personalInfo())
+                                   command=lambda: self.studentPersonalInfo())
         personal_info_btn.pack(side="left")
 
-        student_btn = Button(button_frame, text="Instructor", bg="grey", command=lambda: self.instructor())
+        student_btn = Button(button_frame, text="Student", bg="grey", command=lambda: self.student())
         student_btn.pack(side="left")
 
         blue_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (0, 51, 102), height=2)
@@ -612,44 +663,43 @@ class app:
         yellow_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (204, 204, 0), height=3)
         yellow_bar.pack(fill="x")
 
-
         transcript_btn = Button(self.frame2, text="Academic Transcript", command=lambda: self.transcriptOptions())
         transcript_btn.pack(anchor="w", padx=3, pady=2)
 
-        acc_sum_btn = Button(self.frame2, text="Account Summary", command=lambda: self.accountSummary())
+        acc_sum_btn = Button(self.frame2, text="Account Summary", command=lambda: self.studentUnfinishedPage())
         acc_sum_btn.pack(anchor="w", padx=3, pady=2)
 
-        acc_sum_term_btn = Button(self.frame2, text="Account Summary by Term", command=lambda: self.accountSummaryByTerm())
+        acc_sum_term_btn = Button(self.frame2, text="Account Summary by Term", command=lambda: self.studentUnfinishedPage())
         acc_sum_term_btn.pack(anchor="w", padx=3, pady=2)
 
         course_search_btn = Button(self.frame2, text="Course Section Search", command=lambda: self.courseSectionSearch())
         course_search_btn.pack(anchor="w", padx=3, pady=2)
 
-        deg_audit_btn = Button(self.frame2, text="Degree Audit", command=lambda: self.degreeAudit())
+        deg_audit_btn = Button(self.frame2, text="Degree Audit", command=lambda: self.studentUnfinishedPage())
         deg_audit_btn.pack(anchor="w", padx=3, pady=2)
 
         marks_yacht_btn = Button(self.frame2, text="E-Bill", command=lambda: self.markysYachtFund())
         marks_yacht_btn.pack(anchor="w", padx=3, pady=2)
 
-        midterm_grd_btn = Button(self.frame2, text="Midterm Grades", command=lambda: self.midtermGrades())
+        midterm_grd_btn = Button(self.frame2, text="Midterm Grades", command=lambda: self.studentUnfinishedPage())
         midterm_grd_btn.pack(anchor="w", padx=3, pady=2)
 
         std_info_btn = Button(self.frame2, text="View Student Information", command=lambda: self.viewStudentInfo())
         std_info_btn.pack(anchor="w", padx=3, pady=2)
 
-        grd_detail_btn = Button(self.frame2, text="Grade Detail", command=lambda: self.gradeDetail())
+        grd_detail_btn = Button(self.frame2, text="Grade Detail", command=lambda: self.studentUnfinishedPage())
         grd_detail_btn.pack(anchor="w", padx=3, pady=2)
 
         course_catalog_btn = Button(self.frame2, text="Course Catalog", command=lambda: self.courseCatalog())
         course_catalog_btn.pack(anchor="w", padx=3, pady=2)
 
-        acc_detail_term_btn = Button(self.frame2, text="Account Detail for Term", command=lambda: self.accountDetailForTerm())
+        acc_detail_term_btn = Button(self.frame2, text="Account Detail for Term", command=lambda: self.studentUnfinishedPage())
         acc_detail_term_btn.pack(anchor="w", padx=3, pady=2)
 
-        app_for_grad_btn = Button(self.frame2, text="Application for Graduation", command=lambda: self.appForGrad())
+        app_for_grad_btn = Button(self.frame2, text="Application for Graduation", command=lambda: self.studentUnfinishedPage())
         app_for_grad_btn.pack(anchor="w", padx=3, pady=2)
 
-        view_diploma_name = Button(self.frame2, text="View Diploma Name", command=lambda: self.viewDiplomaName())
+        view_diploma_name = Button(self.frame2, text="View Diploma Name", command=lambda: self.studentUnfinishedPage())
         view_diploma_name.pack(anchor="w", padx=3, pady=2)
 
         blue2_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" %(0,51,102), height=2)
@@ -671,74 +721,31 @@ class app:
         variable2.set(TRANSCRIPTOPTIONBOX2[0])
         self.login_btn = OptionMenu(self.frame5, variable2, *TRANSCRIPTOPTIONBOX2)
         self.login_btn.pack()
-        self.login_btn = tk.Button(self.frame5, text="Submit", command=lambda: self.studentRecords())
+        self.login_btn = tk.Button(self.frame5, text="Submit", command=lambda: self.studentUnfinishedPage())
         self.login_btn.pack()
 
-    def accountSummary(self):
-        for i in self.master.winfo_children():
-            i.destroy()
-        self.frame5 = Frame(self.master, width=300, height=300)
-        self.frame5.pack()
-        self.login_btn = tk.Button(self.frame5, text="Go back", command=lambda: self.studentRecords())
-        self.login_btn.pack()
 
-    def accountSummaryByTerm(self):
-        for i in self.master.winfo_children():
-            i.destroy()
-        self.frame5 = Frame(self.master, width=300, height=300)
-        self.frame5.pack()
-        self.login_btn = tk.Button(self.frame5, text="Go back", command=lambda: self.studentRecords())
-        self.login_btn.pack()
-
+# NEED TO ADD THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     def courseSectionSearch(self):
         for i in self.master.winfo_children():
             i.destroy()
         self.frame5 = Frame(self.master, width=300, height=300)
         self.frame5.pack()
-        self.login_btn = tk.Button(self.frame5, text="Go back", command=lambda: self.studentRecords())
+        self.login_btn = tk.Button(self.frame5, text="Go back", command=lambda: self.studentUnfinishedPage())
         self.login_btn.pack()
 
-    def degreeAudit(self):
-        for i in self.master.winfo_children():
-            i.destroy()
-        self.frame5 = Frame(self.master, width=300, height=300)
-        self.frame5.pack()
-        self.login_btn = tk.Button(self.frame5, text="Go back", command=lambda: self.studentRecords())
-        self.login_btn.pack()
 
+# Add this for shits and giggles
     def markysYachtFund(self):
         for i in self.master.winfo_children():
             i.destroy()
         self.frame5 = Frame(self.master, width=300, height=300)
         self.frame5.pack()
-        self.login_btn = tk.Button(self.frame5, text="Go back", command=lambda: self.studentRecords())
+        self.login_btn = tk.Button(self.frame5, text="Go back", command=lambda: self.studentUnfinishedPage())
         self.login_btn.pack()
 
-    def midtermGrades(self):
-        for i in self.master.winfo_children():
-            i.destroy()
-        self.frame5 = Frame(self.master, width=300, height=300)
-        self.frame5.pack()
-        self.login_btn = tk.Button(self.frame5, text="Go back", command=lambda: self.studentRecords())
-        self.login_btn.pack()
-
-    def viewHolds(self):
-        for i in self.master.winfo_children():
-            i.destroy()
-        self.frame5 = Frame(self.master, width=300, height=300)
-        self.frame5.pack()
-        self.login_btn = tk.Button(self.frame5, text="Go back", command=lambda: self.studentRecords())
-        self.login_btn.pack()
-
+# Add this!
     def viewStudentInfo(self):
-        for i in self.master.winfo_children():
-            i.destroy()
-        self.frame5 = Frame(self.master, width=300, height=300)
-        self.frame5.pack()
-        self.login_btn = tk.Button(self.frame5, text="Go back", command=lambda: self.studentRecords())
-        self.login_btn.pack()
-
-    def gradeDetail(self):
         for i in self.master.winfo_children():
             i.destroy()
         self.frame5 = Frame(self.master, width=300, height=300)
@@ -754,29 +761,6 @@ class app:
         self.login_btn = tk.Button(self.frame5, text="Go back", command=lambda: self.studentRecords())
         self.login_btn.pack()
 
-    def accountDetailForTerm(self):
-        for i in self.master.winfo_children():
-            i.destroy()
-        self.frame5 = Frame(self.master, width=300, height=300)
-        self.frame5.pack()
-        self.login_btn = tk.Button(self.frame5, text="Go back", command=lambda: self.studentRecords())
-        self.login_btn.pack()
-
-    def appForGrad(self):
-        for i in self.master.winfo_children():
-            i.destroy()
-        self.frame5 = Frame(self.master, width=300, height=300)
-        self.frame5.pack()
-        self.login_btn = tk.Button(self.frame5, text="Go back", command=lambda: self.studentRecords())
-        self.login_btn.pack()
-
-    def viewDiplomaName(self):
-        for i in self.master.winfo_children():
-            i.destroy()
-        self.frame5 = Frame(self.master, width=300, height=300)
-        self.frame5.pack()
-        self.login_btn = tk.Button(self.frame5, text="Go back", command=lambda: self.studentRecords())
-        self.login_btn.pack()
 
     def registratation(self):
         for i in self.master.winfo_children():
@@ -809,55 +793,83 @@ class app:
     def student(self):
         for i in self.master.winfo_children():
             i.destroy()
-        self.frame5 = Frame(self.master, width=300, height=300)
-        self.frame5.pack()
-        self.reg_txt2 = tk.Label(self.frame5, text='Student Information')
-        self.reg_txt2.pack()
-        self.login_btn = tk.Button(self.frame5, text="Go to home", command=lambda: self.home())
-        self.login_btn.pack(side=LEFT, expand=True, fill=BOTH)
-        self.login_btn = tk.Button(self.frame5, text="Personal Information", command=lambda: self.personalInfo())
-        self.login_btn.pack(side=LEFT, expand=True, fill=BOTH)
-        self.login_btn = tk.Button(self.frame5, text="Financial Aid", command=lambda: self.financial())
-        self.login_btn.pack(side=LEFT, expand=True, fill=BOTH)
-        self.login_btn = tk.Button(self.frame5, text="Registration and Planning", command=lambda: self.home())
-        self.login_btn.pack(side=BOTTOM, expand=True, fill=BOTH)
-        self.login_btn = tk.Button(self.frame5, text="E-Bill", command=lambda: self.home())
-        self.login_btn.pack(side=BOTTOM, expand=True, fill=BOTH)
-        self.login_btn = tk.Button(self.frame5, text="Online Payment Central", command=lambda: self.home())
-        self.login_btn.pack(side=BOTTOM, expand=True, fill=BOTH)
-        self.login_btn = tk.Button(self.frame5, text="Manage Your Refund Preferences", command=lambda: self.home())
-        self.login_btn.pack(side=BOTTOM, expand=True, fill=BOTH)
-        self.login_btn = tk.Button(self.frame5, text="Student Records", command=lambda: self.studentRecords())
-        self.login_btn.pack(side=BOTTOM, expand=True, fill=BOTH)
-        self.login_btn = tk.Button(self.frame5, text="BookNow", command=lambda: self.home())
-        self.login_btn.pack(side=BOTTOM, expand=True, fill=BOTH)
+
+        self.frame2 = Frame(self.master)
+        self.frame2.pack(fill=tk.BOTH, expand=True)
+
+        banner_image = Image.open("banner.png")
+        self.banner = ImageTk.PhotoImage(banner_image)
+        banner_label = tk.Label(self.frame2, image=self.banner)
+        banner_label.pack(anchor="nw")
+
+        button_frame = tk.Frame(self.frame2)
+        button_frame.pack(fill="x", padx=10)
+
+        personal_info_btn = Button(button_frame, text="Personal Information", bg="grey",
+                                   command=lambda: self.studentPersonalInfo())
+        personal_info_btn.pack(side="left")
+
+        student_btn = Button(button_frame, text="Student", bg="grey", command=lambda: self.student())
+        student_btn.pack(side="left")
+
+        blue_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (0, 51, 102), height=2)
+        blue_bar.pack(fill="x")
+
+        exit_btn = Button(self.frame2, text="EXIT", command=lambda: self.login())
+        exit_btn.pack(anchor="e", padx=10, pady=10)
+
+        exit_btn = Button(self.frame2, text="Main Menu", command=lambda: self.studentHome())
+        exit_btn.pack(anchor="e", padx=10)
+
+        main_menu_label = tk.Label(self.frame2, text="Student Records", font=("Roboto", 16))
+        main_menu_label.pack(anchor="w", padx=3, pady=15)
+
+        yellow_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (204, 204, 0), height=3)
+        yellow_bar.pack(fill="x")
+
+        reg_plan_btn = Button(self.frame2, text="Registration and Planning", command=lambda: self.studentUnfinishedPage())
+        reg_plan_btn.pack(anchor="w", padx=3, pady=2)
+
+        marks_yacht_btn = Button(self.frame2, text="E-Bill", command=lambda: self.markysYachtFund())
+        marks_yacht_btn.pack(anchor="w", padx=3, pady=2)
+
+        online_payment_btn = Button(self.frame2, text="Online Payment Central", command=lambda: self.studentUnfinishedPage())
+        online_payment_btn.pack(anchor="w", padx=3, pady=2)
+
+        manage_ref_btn = Button(self.frame2, text="Manage Your Refund Preferences", command=lambda: self.studentUnfinishedPage())
+        manage_ref_btn.pack(anchor="w", padx=3, pady=2)
+
+        std_rec_btn = Button(self.frame2, text="Student Records", command=lambda: self.studentRecords())
+        std_rec_btn.pack(anchor="w", padx=3, pady=2)
+
+        booknow_btn = Button(self.frame2, text="BookNow", command=self.open_booknow_window)
+        booknow_btn.pack(anchor="w", padx=3, pady=2)
+
+        some_form_web_btn = Button(self.frame2, text="1098-T Form Website", command=self.open_form_window)
+        some_form_web_btn.pack(anchor="w", padx=3, pady=2)
+
+        alumni_btn = Button(self.frame2, text="NSC Alumni MyHub", command=self.open_alumni_window)
+        alumni_btn.pack(anchor="w", padx=3, pady=2)
+
+        blue2_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" %(0,51,102), height=2)
+        blue2_bar.pack(fill="x")
+
+    def open_booknow_window(self):
+        webview.create_window('BookNow', 'http://thewitshop.com')
+        webview.start()
+
+    def open_form_window(self):
         webview.create_window('1098-T Form', 'https://tra.maximus.com/')
-        self.login_btn = tk.Button(self.frame5, text="1098-T Form Website", command=lambda: webview.start())
-        self.login_btn.pack(side=BOTTOM, expand=True, fill=BOTH)
+        webview.start()
+
+    def open_alumni_window(self):
         webview.create_window('Alumni Hub', 'https://tra.maximus.com/')
-        self.login_btn = tk.Button(self.frame5, text="NSC Alumni MyHub", command=lambda: webview.start())
-        self.login_btn.pack(side=BOTTOM, expand=True, fill=BOTH)
+        webview.start()
 
-    def instructor(self):
-        for i in self.master.winfo_children():
-            i.destroy()
-        self.frame6 = Frame(self.master, width=300, height=300)
-        self.frame6.pack()
-        self.reg_txt2 = tk.Label(self.frame6, text='Instructor Information')
-        self.reg_txt2.pack()
-        self.login_btn = tk.Button(self.frame6, text="Print Schedule", command=lambda: self.instructorHome())
-        self.login_btn.pack()
-        self.login_btn = tk.Button(self.frame6, text="Print Class List", command=lambda: self.instructorHome())
-        self.login_btn.pack()
-        self.login_btn = tk.Button(self.frame6, text="Search Course", command=lambda: self.instructorHome())
-        self.login_btn.pack()
-        self.login_btn = tk.Button(self.frame6, text="Add / Drop Course", command=lambda: self.instructorHome())
-        self.login_btn.pack()
-        self.login_btn = tk.Button(self.frame6, text="Go to home", command=lambda: self.instructorHome())
-        self.login_btn.pack()
+        blue2_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" %(0,51,102), height=2)
+        blue2_bar.pack(fill="x")
 
-
-    def personalInfo(self):
+    def studentPersonalInfo(self):
         for i in self.master.winfo_children():
             i.destroy()
 
@@ -873,10 +885,10 @@ class app:
         button_frame.pack(fill="x", padx=10)
 
         personal_info_btn = Button(button_frame, text="Personal Information", bg="grey",
-                                   command=lambda: self.personalInfo())
+                                   command=lambda: self.studentPersonalInfo())
         personal_info_btn.pack(side="left")
 
-        student_btn = Button(button_frame, text="Instructor", bg="grey", command=lambda: self.instructor())
+        student_btn = Button(button_frame, text="Student", bg="grey", command=lambda: self.student())
         student_btn.pack(side="left")
 
         blue_bar = tk.Frame(self.frame5, bg="#%02x%02x%02x" % (0, 51, 102), height=2)
@@ -885,53 +897,216 @@ class app:
         exit_btn = Button(self.frame5, text="EXIT", command=lambda: self.login())
         exit_btn.pack(anchor="e", padx=10, pady=10)
 
-        exit_btn = Button(self.frame5, text="Main Menu", command=lambda: self.studentHome())
-        exit_btn.pack(anchor="e", padx=10)
+        menu_btn = Button(self.frame5, text="Main Menu", command=lambda: self.studentHome())
+        menu_btn.pack(anchor="e", padx=10)
 
         main_menu_label = tk.Label(self.frame5, text="Personal Information", font=("Roboto", 16))
         main_menu_label.pack(anchor="w", padx=3, pady=15)
         yellow_bar = tk.Frame(self.frame5, bg="#%02x%02x%02x" % (204, 204, 0), height=3)
         yellow_bar.pack(fill="x")
 
-        name_chng_btn = Button(self.frame5, text="Name Change Information", command=lambda: self.home())
+        name_chng_btn = Button(self.frame5, text="Name Change Information", command=lambda: self.studentUnfinishedPage())
         name_chng_btn.pack(anchor="w", padx=3, pady=2)
 
-        social_chng_btn = Button(self.frame5, text="Social Security Number Change Information", command=lambda: self.home())
+        social_chng_btn = Button(self.frame5, text="Social Security Number Change Information", command=lambda: self.studentUnfinishedPage())
         social_chng_btn.pack(anchor="w", padx=3, pady=2)
 
-        ferpa_btn = Button(self.frame5, text="Directory Listing Opt-Out (FERPA)", command=lambda: self.home())
+        ferpa_btn = Button(self.frame5, text="Directory Listing Opt-Out (FERPA)", command=lambda: self.studentUnfinishedPage())
         ferpa_btn.pack(anchor="w", padx=3, pady=2)
 
-        add_gend_btn = Button(self.frame5, text="Additional Gender Information", command=lambda: self.home())
+        add_gend_btn = Button(self.frame5, text="Additional Gender Information", command=lambda: self.studentUnfinishedPage())
         add_gend_btn.pack(anchor="w", padx=3, pady=2)
 
         blue2_bar = tk.Frame(self.frame5, bg="#%02x%02x%02x" %(0,51,102), height=2)
         blue2_bar.pack(fill="x")
 
-    def home(self):
+
+    def instructorPersonalInfo(self):
         for i in self.master.winfo_children():
             i.destroy()
 
-        label = Label(text="Main Page")
-        label.pack()
-        self.frame3 = Frame(self.master)
-        self.frame3.pack()
-        bg=Image.open("banner.png")
-        bg = ImageTk.PhotoImage(bg)
-        label = Label(self.master, image = bg)
-        label.pack()
-        canvas1 = Canvas(self.master, width=1100, height=400)
-        canvas1.pack()
-        canvas1.create_image(0, 0, image=bg, anchor="nw")
+        self.frame5 = Frame(self.master)
+        self.frame5.pack(fill=tk.BOTH, expand=True)
 
-        self.login_btn = Button(self.frame3, text="Home", command=lambda: self.login())
-        self.login_btn.pack()
-        self.login_btn = Button(self.frame3, text="Personal Information", command=lambda: self.personalInfo())
-        self.login_btn.pack()
-        self.login_btn = Button(self.frame3, text="Financial Aid", command=lambda: self.financial())
-        self.login_btn.pack()
-        self.login_btn = Button(self.frame3, text="Student", command=lambda: self.student())
-        self.login_btn.pack()
+        banner_image = Image.open("banner.png")
+        self.banner = ImageTk.PhotoImage(banner_image)
+        banner_label = tk.Label(self.frame5, image=self.banner)
+        banner_label.pack(anchor="nw")
+
+        button_frame = tk.Frame(self.frame5)
+        button_frame.pack(fill="x", padx=10)
+
+        personal_info_btn = Button(button_frame, text="Personal Information", bg="grey",
+                                   command=lambda: self.studentPersonalInfo())
+        personal_info_btn.pack(side="left")
+
+        student_btn = Button(button_frame, text="Instructor", bg="grey", command=lambda: self.instructorHome())
+        student_btn.pack(side="left")
+
+        blue_bar = tk.Frame(self.frame5, bg="#%02x%02x%02x" % (0, 51, 102), height=2)
+        blue_bar.pack(fill="x")
+
+        exit_btn = Button(self.frame5, text="EXIT", command=lambda: self.login())
+        exit_btn.pack(anchor="e", padx=10, pady=10)
+
+        menu_btn = Button(self.frame5, text="Main Menu", command=lambda: self.instructorHome())
+        menu_btn.pack(anchor="e", padx=10)
+
+        main_menu_label = tk.Label(self.frame5, text="Personal Information", font=("Roboto", 16))
+        main_menu_label.pack(anchor="w", padx=3, pady=15)
+        yellow_bar = tk.Frame(self.frame5, bg="#%02x%02x%02x" % (204, 204, 0), height=3)
+        yellow_bar.pack(fill="x")
+
+        name_chng_btn = Button(self.frame5, text="Name Change Information", command=lambda: self.instructorUnfinishedPage())
+        name_chng_btn.pack(anchor="w", padx=3, pady=2)
+
+        social_chng_btn = Button(self.frame5, text="Social Security Number Change Information", command=lambda: self.instructorUnfinishedPage())
+        social_chng_btn.pack(anchor="w", padx=3, pady=2)
+
+        ferpa_btn = Button(self.frame5, text="Directory Listing Opt-Out (FERPA)", command=lambda: self.instructorUnfinishedPage())
+        ferpa_btn.pack(anchor="w", padx=3, pady=2)
+
+        add_gend_btn = Button(self.frame5, text="Additional Gender Information", command=lambda: self.instructorUnfinishedPage())
+        add_gend_btn.pack(anchor="w", padx=3, pady=2)
+
+        blue2_bar = tk.Frame(self.frame5, bg="#%02x%02x%02x" %(0,51,102), height=2)
+        blue2_bar.pack(fill="x")
+
+    def studentUnfinishedPage(self):
+        for i in self.master.winfo_children():
+            i.destroy()
+
+        self.frame2 = Frame(self.master)
+        self.frame2.pack(fill=tk.BOTH, expand=True)
+
+        banner_image = Image.open("banner.png")
+        self.banner = ImageTk.PhotoImage(banner_image)
+        banner_label = tk.Label(self.frame2, image=self.banner)
+        banner_label.pack(anchor="nw")
+
+        button_frame = tk.Frame(self.frame2)
+        button_frame.pack(fill="x", padx=10)
+
+        personal_info_btn = Button(button_frame, text="Personal Information", bg="grey",
+                                   command=lambda: self.studentPersonalInfo())
+        personal_info_btn.pack(side="left")
+
+        student_btn = Button(button_frame, text="Student", bg="grey", command=lambda: self.student())
+        student_btn.pack(side="left")
+
+        blue_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (0, 51, 102), height=2)
+        blue_bar.pack(fill="x")
+
+        exit_btn = Button(self.frame2, text="EXIT", command=lambda: self.login())
+        exit_btn.pack(anchor="e", padx=10, pady=10)
+
+        menu_btn = Button(self.frame2, text="Main Menu", command=lambda: self.studentHome())
+        menu_btn.pack(anchor="e", padx=10)
+
+        main_menu_label = tk.Label(self.frame2, text="Page Under Construction", font=("Roboto", 16))
+        main_menu_label.pack(anchor="w", padx=3, pady=15)
+
+        yellow_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (204, 204, 0), height=3)
+        yellow_bar.pack(fill="x")
+
+        construction_label = tk.Label(self.frame2, text="Page Under Construction!", font=("Roboto", 16))
+        construction_label.pack(pady=5)
+
+        menu_low_btn = Button(self.frame2, text="Go Back to Main Menu", font=("Roboto", 12), command=lambda: self.studentHome())
+        menu_low_btn.pack(pady=10)
+
+        blue2_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" %(0,51,102), height=2)
+        blue2_bar.pack(fill="x")
+
+
+    def instructorUnfinishedPage(self):
+        for i in self.master.winfo_children():
+            i.destroy()
+
+        self.frame2 = Frame(self.master)
+        self.frame2.pack(fill=tk.BOTH, expand=True)
+
+        banner_image = Image.open("banner.png")
+        self.banner = ImageTk.PhotoImage(banner_image)
+        banner_label = tk.Label(self.frame2, image=self.banner)
+        banner_label.pack(anchor="nw")
+
+        button_frame = tk.Frame(self.frame2)
+        button_frame.pack(fill="x", padx=10)
+
+        personal_info_btn = Button(button_frame, text="Personal Information", bg="grey",
+                                   command=lambda: self.instructorPersonalInfo())
+        personal_info_btn.pack(side="left")
+
+        student_btn = Button(button_frame, text="Instructor", bg="grey", command=lambda: self.instructor())
+        student_btn.pack(side="left")
+
+        blue_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (0, 51, 102), height=2)
+        blue_bar.pack(fill="x")
+
+        exit_btn = Button(self.frame2, text="EXIT", command=lambda: self.login())
+        exit_btn.pack(anchor="e", padx=10, pady=10)
+
+        menu_btn = Button(self.frame2, text="Main Menu", command=lambda: self.instructorHome())
+        menu_btn.pack(anchor="e", padx=10)
+
+        main_menu_label = tk.Label(self.frame2, text="Page Under Construction", font=("Roboto", 16))
+        main_menu_label.pack(anchor="w", padx=3, pady=15)
+
+        yellow_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (204, 204, 0), height=3)
+        yellow_bar.pack(fill="x")
+
+        construction_label = tk.Label(self.frame2, text="Page Under Construction!", font=("Roboto", 16))
+        construction_label.pack(pady=5)
+
+        menu_low_btn = Button(self.frame2, text="Go Back to Main Menu", font=("Roboto", 12), command=lambda: self.instructorHome())
+        menu_low_btn.pack(pady=10)
+
+        blue2_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" %(0,51,102), height=2)
+        blue2_bar.pack(fill="x")
+
+    def adminUnfinishedPage(self):
+        for i in self.master.winfo_children():
+            i.destroy()
+
+        self.frame2 = Frame(self.master)
+        self.frame2.pack(fill=tk.BOTH, expand=True)
+
+        banner_image = Image.open("banner.png")
+        self.banner = ImageTk.PhotoImage(banner_image)
+        banner_label = tk.Label(self.frame2, image=self.banner)
+        banner_label.pack(anchor="nw")
+
+        button_frame = tk.Frame(self.frame2)
+        button_frame.pack(fill="x", padx=10)
+
+        student_btn = Button(button_frame, text="Admin", bg="grey", command=lambda: self.adminHome())
+        student_btn.pack(side="left")
+
+        blue_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (0, 51, 102), height=2)
+        blue_bar.pack(fill="x")
+
+        exit_btn = Button(self.frame2, text="EXIT", command=lambda: self.login())
+        exit_btn.pack(anchor="e", padx=10, pady=10)
+
+        menu_btn = Button(self.frame2, text="Main Menu", command=lambda: self.adminHome())
+        menu_btn.pack(anchor="e", padx=10)
+
+        main_menu_label = tk.Label(self.frame2, text="Page Under Construction", font=("Roboto", 16))
+        main_menu_label.pack(anchor="w", padx=3, pady=15)
+
+        yellow_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (204, 204, 0), height=3)
+        yellow_bar.pack(fill="x")
+
+        construction_label = tk.Label(self.frame2, text="Page Under Construction!", font=("Roboto", 16))
+        construction_label.pack(pady=5)
+
+        menu_low_btn = Button(self.frame2, text="Go Back to Main Menu", font=("Roboto", 12), command=lambda: self.adminHome())
+        menu_low_btn.pack(pady=10)
+
+        blue2_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" %(0,51,102), height=2)
+        blue2_bar.pack(fill="x")
+
     def checkLogin(self, username, password):
 
         print(username)
