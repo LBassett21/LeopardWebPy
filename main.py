@@ -43,11 +43,11 @@ class app:
         width = self.master.winfo_screenwidth()
         height = self.master.winfo_screenheight()
 
-        #bg_image = Image.open("wit-background.png")
-        #bg_image = bg_image.resize((width, height), Image.LANCZOS)
-        #self.bg = ImageTk.PhotoImage(bg_image)
-        #bg_label = tk.Label(self.frame1, image=self.bg)
-        #bg_label.place(x=0, y=0, relwidth=1, relheight=1)
+        bg_image = Image.open("wit-background.png")
+        bg_image = bg_image.resize((width, height), Image.LANCZOS)
+        self.bg = ImageTk.PhotoImage(bg_image)
+        bg_label = tk.Label(self.frame1, image=self.bg)
+        bg_label.place(x=0, y=0, relwidth=1, relheight=1)
 
         black_bar = tk.Frame(self.frame1, bg="black", height=50)
         black_bar.pack(fill="x")
