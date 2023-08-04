@@ -71,7 +71,7 @@ class app:
         entry1.pack(pady=5)
         self.pw_txt = tk.Label(white_frame, text='Password:', font=("Roboto", 10), bg="white")
         self.pw_txt.pack(pady=5, padx=10, anchor="w")
-        entry2 = Entry(white_frame, width=40, font=("Arial", 12))
+        entry2 = Entry(white_frame, width=40, font=("Arial", 12), show="*")
         #entry2 = Entry(white_frame, show="*")      #Uncomment for final version
         entry2.pack(pady=5)
         self.login_btn = Button(white_frame, text="LOGIN", width=20, relief="raised", bg="#%02x%02x%02x" %(209,0,3), fg="white", font=("Roboto", 20), command=lambda: self.checkLogin(entry1.get(), entry2.get()))
@@ -126,7 +126,7 @@ class app:
         rem_course_btn = Button(self.frame2, text="Remove Course", command=lambda: self.courseRem())
         rem_course_btn.pack(anchor="w", padx=3, pady=2)
 
-        mod_user_btn = Button(self.frame2, text="Modify A User", command=lambda: Admin.modifyUser(self))
+        mod_user_btn = Button(self.frame2, text="Modify A User", command=lambda: self.adminModStudent())
         mod_user_btn.pack(anchor="w", padx=3, pady=2)
 
         print_users_btn = Button(self.frame2, text="Print All Users", command=lambda: admin.print_database())
