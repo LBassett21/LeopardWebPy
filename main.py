@@ -43,11 +43,11 @@ class app:
         width = self.master.winfo_screenwidth()
         height = self.master.winfo_screenheight()
 
-        bg_image = Image.open("wit-background.png")
-        bg_image = bg_image.resize((width, height), Image.LANCZOS)
-        self.bg = ImageTk.PhotoImage(bg_image)
-        bg_label = tk.Label(self.frame1, image=self.bg)
-        bg_label.place(x=0, y=0, relwidth=1, relheight=1)
+        #bg_image = Image.open("wit-background.png")
+        #bg_image = bg_image.resize((width, height), Image.LANCZOS)
+        #self.bg = ImageTk.PhotoImage(bg_image)
+        #bg_label = tk.Label(self.frame1, image=self.bg)
+        #bg_label.place(x=0, y=0, relwidth=1, relheight=1)
 
         black_bar = tk.Frame(self.frame1, bg="black", height=50)
         black_bar.pack(fill="x")
@@ -298,7 +298,7 @@ class app:
         blue_bar = tk.Frame(self.frame3, bg="#%02x%02x%02x" %(0,51,102), height=2)
         blue_bar.pack(fill="x")
 
-        exit_btn = Button(self.frame3, text="EXIT", command=self.frame3.quit)
+        exit_btn = Button(self.frame3, text="EXIT", command=lambda: self.login())
         exit_btn.pack(anchor="e", padx=10, pady=10)
 
         main_menu_label = tk.Label(self.frame3, text="Main Menu", font=("Roboto", 16))
@@ -328,16 +328,50 @@ class app:
     def instructorHome(self):
         for i in self.master.winfo_children():
             i.destroy()
-        self.frame2 = Frame(self.master, width=300, height=300)
-        self.frame2.pack()
-        self.reg_txt2 = tk.Label(self.frame2, text='Welcome Instructor')
-        self.reg_txt2.pack()
-        self.login_btn = tk.Button(self.frame2, text='Personal Information')
-        self.login_btn.pack()
-        self.login_btn = tk.Button(self.frame2, text='Instructor', command=lambda: self.instructor())
-        self.login_btn.pack()
-        self.login_btn = tk.Button(self.frame2, text="Go to Login", command=lambda: self.login())
-        self.login_btn.pack()
+
+        self.frame2 = Frame(self.master)
+        self.frame2.pack(fill=tk.BOTH, expand=True)
+
+        banner_image = Image.open("banner.png")
+        self.banner = ImageTk.PhotoImage(banner_image)
+        banner_label = tk.Label(self.frame2, image=self.banner)
+        banner_label.pack(anchor="nw")
+
+        button_frame = tk.Frame(self.frame2)
+        button_frame.pack(fill="x", padx=10)
+
+        personal_info_btn = Button(button_frame, text="Personal Information", bg="grey",
+                                   command=lambda: self.personalInfo())
+        personal_info_btn.pack(side="left")
+
+        student_btn = Button(button_frame, text="Instructor", bg="grey", command=lambda: self.instructor())
+        student_btn.pack(side="left")
+
+        blue_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (0, 51, 102), height=2)
+        blue_bar.pack(fill="x")
+
+        exit_btn = Button(self.frame2, text="EXIT", command=lambda: self.login())
+        exit_btn.pack(anchor="e", padx=10, pady=10)
+
+        main_menu_label = tk.Label(self.frame2, text="Main Menu", font=("Roboto", 16))
+        main_menu_label.pack(anchor="w", padx=3, pady=15)
+        yellow_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (204, 204, 0), height=3)
+        yellow_bar.pack(fill="x")
+
+        personal_info_btn_bottom = Button(self.frame2, text="Personal Information", command=lambda: self.personalInfo())
+        personal_info_btn_bottom.pack(anchor="w", padx=3, pady=2)
+        personal_info_txt = "Update addresses, contact information or marital status; review name or social security number change information; Customize your directory profile."
+        text_widget = tk.Label(self.frame2, text=personal_info_txt, font=("Roboto", 8))
+        text_widget.pack(pady=(0, 5), anchor="w")
+
+        instructor_btn_bottom = Button(self.frame2, text="Instructor", command=lambda: self.instructor())
+        instructor_btn_bottom.pack(anchor="w", padx=3, pady=2)
+        instructor_txt = "Apply for Admission, Register and View your academic records."
+        text_widget = tk.Label(self.frame2, text=instructor_txt, font=("Roboto", 8))
+        text_widget.pack(pady=(0,5), anchor="w")
+
+        blue2_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" %(0,51,102), height=2)
+        blue2_bar.pack(fill="x")
 
     def register(self):
         for i in self.master.winfo_children():
