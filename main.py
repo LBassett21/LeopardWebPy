@@ -37,25 +37,64 @@ class app:
         for i in self.master.winfo_children():
             i.destroy()
 
-        self.bg = PhotoImage(file="banner.png")
-        self.frame1 = Frame(self.master)
-        self.frame1.pack()
-        label1 = Label(self.frame1, image=self.bg)
-        label1.pack()
-        self.reg_txt = tk.Label(self.frame1, text='Welcome to Leopardweb')
-        self.reg_txt.pack()
-        entry1 = Entry()
-        entry1.pack()
-        entry2 = Entry()
-        entry2.pack()
-        self.login_btn = Button(self.frame1, text="Login", command=lambda: self.checkLogin(entry1.get(), entry2.get()))
-        self.login_btn.pack()
+        self.frame1 = tk.Frame(self.master)
+        self.frame1.pack(fill=tk.BOTH, expand=True)
+
+        width = self.master.winfo_screenwidth()
+        height = self.master.winfo_screenheight()
+
+        bg_image = Image.open("wit-background.png")
+        bg_image = bg_image.resize((width, height), Image.LANCZOS)
+        self.bg = ImageTk.PhotoImage(bg_image)
+        bg_label = tk.Label(self.frame1, image=self.bg)
+        bg_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+        black_bar = tk.Frame(self.frame1, bg="black", height=50)
+        black_bar.pack(fill="x")
+
+        logo_image = Image.open("Logo_Lockup_Red-Dark_Bkgd.png")
+        logo_height = 50
+        logo_width = int((logo_image.width / logo_image.height) * logo_height)
+        logo_image = logo_image.resize((logo_width, logo_height), Image.LANCZOS)
+        self.logo = ImageTk.PhotoImage(logo_image)
+        logo_label = tk.Label(black_bar, image=self.logo, bg="black")
+        logo_label.pack(side="left", padx=10)
+
+        white_frame = tk.Frame(self.frame1, bg="white", relief="raised", borderwidth=5)
+        white_frame.place(relx=0.5, rely=0.5, anchor="center", width=400, height=500)
+
+        self.reg_txt = tk.Label(white_frame, text='Enter Username and Password', font=("Roboto", 18), bg="white")
+        self.reg_txt.pack(pady=10, padx=10, anchor="w")
+        self.un_txt = tk.Label(white_frame, text='Username:', font=("Roboto", 10), bg="white")
+        self.un_txt.pack(pady=5, padx=10, anchor="w")
+        entry1 = Entry(white_frame, width=40, font=("Roboto", 12))
+        entry1.pack(pady=5)
+        self.pw_txt = tk.Label(white_frame, text='Password:', font=("Roboto", 10), bg="white")
+        self.pw_txt.pack(pady=5, padx=10, anchor="w")
+        entry2 = Entry(white_frame, width=40, font=("Arial", 12))
+        #entry2 = Entry(white_frame, show="*")      #Uncomment for final version
+        entry2.pack(pady=5)
+        self.login_btn = Button(white_frame, text="LOGIN", width=20, relief="raised", bg="#%02x%02x%02x" %(209,0,3), fg="white", font=("Roboto", 20), command=lambda: self.checkLogin(entry1.get(), entry2.get()))
+        self.login_btn.pack(pady=10)
+        warning_text = "For security reasons, please log out and exit your web browser when you are done accessing services that require authentication!"
+        text_widget = tk.Label(white_frame, text=warning_text, font=("Roboto", 10), bg="white", wraplength=350, anchor="w")
+        text_widget.pack(pady=(0, 10))
+
 
     def adminHome(self):
         for i in self.master.winfo_children():
             i.destroy()
-        self.frame2 = Frame(self.master, width=300, height=300)
-        self.frame2.pack()
+
+        self.frame2 = tk.Frame(self.master)
+        self.frame2.pack(fill=tk.BOTH, expand=True)
+
+        ban_image = Image.open("banner.png")
+        self.ban = ImageTk.PhotoImage(ban_image)
+        ban_label = tk.Label(self.frame2, image=self.ban)
+        ban_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+        #self.frame2 = Frame(self.master, width=300, height=300)
+        #self.frame2.pack()
         self.reg_txt2 = tk.Label(self.frame2, text='Admin Homepage')
         self.reg_txt2.pack()
         self.login_btn = tk.Button(self.frame2, text="Go to Login", command=lambda: self.login())
@@ -235,26 +274,55 @@ class app:
         for i in self.master.winfo_children():
             i.destroy()
 
-        label = Label(text="Main Page")
-        label.pack()
         self.frame3 = Frame(self.master)
-        self.frame3.pack()
-        bg = Image.open("banner.png")
-        bg = ImageTk.PhotoImage(bg)
-        label = Label(self.master, image=bg)
-        label.pack()
-        canvas1 = Canvas(self.master, width=1100, height=400)
-        canvas1.pack()
-        canvas1.create_image(0, 0, image=bg, anchor="nw")
+        self.frame3.pack(fill=tk.BOTH, expand=True)
 
-        self.login_btn = Button(self.frame3, text="Home", command=lambda: self.login())
-        self.login_btn.pack(side=LEFT, expand=True, fill=BOTH)
-        self.login_btn = Button(self.frame3, text="Personal Information", command=lambda: self.personalInfo())
-        self.login_btn.pack(side=LEFT, expand=True, fill=BOTH)
-        self.login_btn = Button(self.frame3, text="Financial Aid", command=lambda: self.financial())
-        self.login_btn.pack(side=LEFT, expand=True, fill=BOTH)
-        self.login_btn = Button(self.frame3, text="Student", command=lambda: self.student())
-        self.login_btn.pack(side=LEFT, expand=True, fill=BOTH)
+        banner_image = Image.open("banner.png")
+        self.banner = ImageTk.PhotoImage(banner_image)
+        banner_label = tk.Label(self.frame3, image=self.banner)
+        banner_label.pack(anchor="nw")
+
+        button_frame = tk.Frame(self.frame3)
+        button_frame.pack(fill="x", padx=10)
+
+        personal_info_btn = Button(button_frame, text="Personal Information", bg="grey",
+                                   command=lambda: self.personalInfo())
+        personal_info_btn.pack(side="left")
+
+        student_btn = Button(button_frame, text="Student", bg="grey", command=lambda: self.student())
+        student_btn.pack(side="left")
+
+        financial_aid_btn = Button(button_frame, text="Financial Aid", bg="grey", command=lambda: self.financial())
+        financial_aid_btn.pack(side="left")
+
+        blue_bar = tk.Frame(self.frame3, bg="#%02x%02x%02x" %(0,51,102), height=2)
+        blue_bar.pack(fill="x")
+
+        exit_btn = Button(self.frame3, text="EXIT", command=self.frame3.quit)
+        exit_btn.pack(anchor="e", padx=10, pady=10)
+
+        main_menu_label = tk.Label(self.frame3, text="Main Menu", font=("Roboto", 16))
+        main_menu_label.pack(anchor="w", padx=3, pady=15)
+        yellow_bar = tk.Frame(self.frame3, bg="#%02x%02x%02x" %(204,204,0), height=3)
+        yellow_bar.pack(fill="x")
+
+        personal_info_btn_bottom = Button(self.frame3, text="Personal Information", command=lambda: self.personalInfo())
+        personal_info_btn_bottom.pack(anchor="w", padx=3, pady=2)
+        personal_info_txt = "Update addresses, contact information or marital status; review name or social security number change information; Customize your directory profile."
+        text_widget = tk.Label(self.frame3, text=personal_info_txt, font=("Roboto", 8))
+        text_widget.pack(pady=(0, 5), anchor="w")
+        student_btn_bottom = Button(self.frame3, text="Student", command=lambda: self.student())
+        student_btn_bottom.pack(anchor="w", padx=3, pady=2)
+        student_txt = "Apply for Admission, Register and View your academic records."
+        text_widget = tk.Label(self.frame3, text=student_txt, font=("Roboto", 8))
+        text_widget.pack(pady=(0,5), anchor="w")
+        financial_aid_btn_bottom = Button(self.frame3, text="Financial Aid", command=lambda: self.financial())
+        financial_aid_btn_bottom.pack(anchor="w", padx=3, pady=2)
+        financial_aid_txt = "View Financial Aid Information."
+        text_widget = tk.Label(self.frame3, text=financial_aid_txt, font=("Roboto", 8))
+        text_widget.pack(pady=(0, 5), anchor="w")
+        blue2_bar = tk.Frame(self.frame3, bg="#%02x%02x%02x" %(0,51,102), height=2)
+        blue2_bar.pack(fill="x")
 
 
     def instructorHome(self):
@@ -545,7 +613,6 @@ class app:
         self.login_btn.pack(side=BOTTOM, expand=True, fill=BOTH)
 
     def home(self):
-
         for i in self.master.winfo_children():
             i.destroy()
 
@@ -617,9 +684,6 @@ class app:
 
         else:
             print("Incorrect username or password, please try again")
-
-
-
 
 
 def main():
