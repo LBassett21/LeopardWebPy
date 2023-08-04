@@ -71,7 +71,7 @@ class app:
         entry1.pack(pady=5)
         self.pw_txt = tk.Label(white_frame, text='Password:', font=("Roboto", 10), bg="white")
         self.pw_txt.pack(pady=5, padx=10, anchor="w")
-        entry2 = Entry(white_frame, width=40, font=("Arial", 12))
+        entry2 = Entry(white_frame, width=40, font=("Arial", 12), show="*")
         #entry2 = Entry(white_frame, show="*")      #Uncomment for final version
         entry2.pack(pady=5)
         self.login_btn = Button(white_frame, text="LOGIN", width=20, relief="raised", bg="#%02x%02x%02x" %(209,0,3), fg="white", font=("Roboto", 20), command=lambda: self.checkLogin(entry1.get(), entry2.get()))
@@ -107,10 +107,13 @@ class app:
         self.login_btn.pack()
         self.login_btn = tk.Button(self.frame2, text="Remove Course", command=lambda: self.courseRem())
         self.login_btn.pack()
-        self.login_btn = tk.Button(self.frame2, text="Modify A User", command=lambda: Admin.modifyUser(self))
+        self.login_btn = tk.Button(self.frame2, text="Modify A User", command=lambda: self.adminModStudent())
         self.login_btn.pack()
         self.login_btn = tk.Button(self.frame2, text="Print All Users", command=lambda: admin.print_database())
         self.login_btn.pack()
+
+
+
 
     def adminModStudent(self):
         for i in self.master.winfo_children():
@@ -240,9 +243,6 @@ class app:
         label.pack()
         email = tk.Entry(self.frame2)
         email.pack()
-
-
-
 
 
         button = tk.Button(self.frame2, text= "Add New Student",command=lambda:[admin.new_student(ID.get(), first.get(), last.get(), year.get(), major.get(), email.get()), self.adminHome()])
