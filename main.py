@@ -271,12 +271,12 @@ class app:
         y = 375
 
         for row in student_info:
-            self.label = tk.Label(self.frame2, text=row[0], font=("Roboto", 10)).place(x=50, y=y)
-            self.label = tk.Label(self.frame2, text=row[1], font=("Roboto", 10)).place(x=100, y=y)
-            self.label = tk.Label(self.frame2, text=row[2], font=("Roboto", 10)).place(x=150, y=y)
-            self.label = tk.Label(self.frame2, text=row[3], font=("Roboto", 10)).place(x=250, y=y)
-            self.label = tk.Label(self.frame2, text=row[4], font=("Roboto", 10)).place(x=400, y=y)
-            self.label = tk.Label(self.frame2, text=row[5], font=("Roboto", 10)).place(x=500, y=y)
+            self.label = tk.Label(self.frame2, text=row[0], font=("Roboto", 9)).place(x=50, y=y)
+            self.label = tk.Label(self.frame2, text=row[1], font=("Roboto", 9)).place(x=100, y=y)
+            self.label = tk.Label(self.frame2, text=row[2], font=("Roboto", 9)).place(x=150, y=y)
+            self.label = tk.Label(self.frame2, text=row[3], font=("Roboto", 9)).place(x=250, y=y)
+            self.label = tk.Label(self.frame2, text=row[4], font=("Roboto", 9)).place(x=400, y=y)
+            self.label = tk.Label(self.frame2, text=row[5], font=("Roboto", 9)).place(x=500, y=y)
 
             print(row)
 
@@ -295,13 +295,13 @@ class app:
         self.label = tk.Label(self.frame2, text="EMAIL", font=("Roboto", 10)).place(x=1175, y=350)
         y = 375
         for row in student_info:
-            self.label = tk.Label(self.frame2, text=row[0], font=("Roboto", 10)).place(x=650, y=y)
-            self.label = tk.Label(self.frame2, text=row[1], font=("Roboto", 10)).place(x=725, y=y)
-            self.label = tk.Label(self.frame2, text=row[2], font=("Roboto", 10)).place(x=800, y=y)
-            self.label = tk.Label(self.frame2, text=row[3], font=("Roboto", 10)).place(x=875, y=y)
-            self.label = tk.Label(self.frame2, text=row[4], font=("Roboto", 10)).place(x=975, y=y)
-            self.label = tk.Label(self.frame2, text=row[5], font=("Roboto", 10)).place(x=1100, y=y)
-            self.label = tk.Label(self.frame2, text=row[6], font=("Roboto", 10)).place(x=1175, y=y)
+            self.label = tk.Label(self.frame2, text=row[0], font=("Roboto", 9)).place(x=650, y=y)
+            self.label = tk.Label(self.frame2, text=row[1], font=("Roboto", 9)).place(x=725, y=y)
+            self.label = tk.Label(self.frame2, text=row[2], font=("Roboto", 9)).place(x=800, y=y)
+            self.label = tk.Label(self.frame2, text=row[3], font=("Roboto", 9)).place(x=875, y=y)
+            self.label = tk.Label(self.frame2, text=row[4], font=("Roboto", 9)).place(x=975, y=y)
+            self.label = tk.Label(self.frame2, text=row[5], font=("Roboto", 9)).place(x=1100, y=y)
+            self.label = tk.Label(self.frame2, text=row[6], font=("Roboto", 9)).place(x=1175, y=y)
             print(row)
             y += 20
 
@@ -318,12 +318,12 @@ class app:
 
         y = 375
         for row in student_info:
-            self.label = tk.Label(self.frame2, text=row[0], font=("Roboto", 10)).place(x=1300, y=y)
-            self.label = tk.Label(self.frame2, text=row[1], font=("Roboto", 10)).place(x=1375, y=y)
-            self.label = tk.Label(self.frame2, text=row[2], font=("Roboto", 10)).place(x=1475, y=y)
-            self.label = tk.Label(self.frame2, text=row[3], font=("Roboto", 10)).place(x=1550, y=y)
-            self.label = tk.Label(self.frame2, text=row[4], font=("Roboto", 10)).place(x=1650, y=y)
-            self.label = tk.Label(self.frame2, text=row[5], font=("Roboto", 10)).place(x=1800, y=y)
+            self.label = tk.Label(self.frame2, text=row[0], font=("Roboto", 9)).place(x=1300, y=y)
+            self.label = tk.Label(self.frame2, text=row[1], font=("Roboto", 9)).place(x=1375, y=y)
+            self.label = tk.Label(self.frame2, text=row[2], font=("Roboto", 9)).place(x=1475, y=y)
+            self.label = tk.Label(self.frame2, text=row[3], font=("Roboto", 9)).place(x=1550, y=y)
+            self.label = tk.Label(self.frame2, text=row[4], font=("Roboto", 9)).place(x=1650, y=y)
+            self.label = tk.Label(self.frame2, text=row[5], font=("Roboto", 9)).place(x=1800, y=y)
 
             print(row)
             y += 20
