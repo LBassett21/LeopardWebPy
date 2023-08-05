@@ -13,7 +13,7 @@ class Admin(user):
         self.email = email
 
     # Add or remove user. If ar == true, then it will add user, else remove user
-    def addRemoveUser(self, ar):
+    def addRemoveUser(self, ar, badID, yes):
         if ar == True:
             print("What type of user would you like to add?")
             choice = input("Enter your choice (Admin, Instructor, Student): ")
@@ -50,7 +50,7 @@ class Admin(user):
         else:
             # remove user based on ID.
             print("Please enter the ID of the user")
-            removeid = input("ID Number: ")
+            removeid = badID
             cursor.execute("""SELECT ID FROM admin WHERE ID=?""", (removeid,))
             admin_check = cursor.fetchone()
             cursor.execute("""SELECT ID FROM instructor WHERE ID=?""", (removeid,))
@@ -58,8 +58,8 @@ class Admin(user):
             cursor.execute("""SELECT ID FROM student WHERE ID=?""", (removeid,))
             student_check = cursor.fetchone()
             if admin_check or instructor_check or student_check:
-                confirm = input(f"Are you sure you want to remove user ID: {removeid}? (Yes/No): ")
-                if confirm == "Yes":
+                confirm = yes
+                if confirm == "yes":
                     if admin_check:
                         cursor.execute("""DELETE FROM admin WHERE ID=?""", (removeid,))
                         db.commit()

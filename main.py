@@ -117,8 +117,11 @@ class app:
         print_roster_btn = Button(self.frame2, text="Print Course Roster", command=lambda: self.adminRoster())
         print_roster_btn.pack(anchor="w", padx=3, pady=2)
 
-        add_remove_usr_btn = Button(self.frame2, text="Add/Remove User", command=lambda: self.adminNewStudent())
+        add_remove_usr_btn = Button(self.frame2, text="Add Student", command=lambda: self.adminNewStudent())
         add_remove_usr_btn.pack(anchor="w", padx=3, pady=2)
+
+        add_course_btn = Button(self.frame2, text="Remove User", command=lambda: self.removeUser())
+        add_course_btn.pack(anchor="w", padx=3, pady=2)
 
         add_course_btn = Button(self.frame2, text="Add Course", command=lambda: self.courseAdd())
         add_course_btn.pack(anchor="w", padx=3, pady=2)
@@ -134,6 +137,51 @@ class app:
 
         blue2_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" %(0,51,102), height=2)
         blue2_bar.pack(fill="x")
+
+    def removeUser(self):
+        for i in self.master.winfo_children():
+            i.destroy()
+
+        self.frame2 = Frame(self.master)
+        self.frame2.pack(fill=tk.BOTH, expand=True)
+
+        banner_image = Image.open("banner.png")
+        self.banner = ImageTk.PhotoImage(banner_image)
+        banner_label = tk.Label(self.frame2, image=self.banner)
+        banner_label.pack(anchor="nw")
+
+        button_frame = tk.Frame(self.frame2)
+        button_frame.pack(fill="x", padx=10)
+
+        student_btn = Button(button_frame, text="Admin", bg="grey", command=lambda: self.adminHome())
+        student_btn.pack(side="left")
+
+        blue_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (0, 51, 102), height=2)
+        blue_bar.pack(fill="x")
+
+        exit_btn = Button(self.frame2, text="EXIT", command=lambda: self.login())
+        exit_btn.pack(anchor="e", padx=10, pady=10)
+
+        home_btn = Button(self.frame2, text="Main Menu", command=lambda: self.adminHome())
+        home_btn.pack(anchor="e", padx=10)
+
+        main_menu_label = tk.Label(self.frame2, text="All Users", font=("Roboto", 16))
+        main_menu_label.pack(anchor="w", padx=3, pady=15)
+        yellow_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (204, 204, 0), height=3)
+        yellow_bar.pack(fill="x")
+
+        label = tk.Label(self.frame2, text = "User ID You Would Like to Remove")
+        label.pack()
+
+        entry = tk.Entry(self.frame2)
+        entry.pack()
+
+        button = tk.Button(self.frame2, text= "Remove User", command=lambda: [Admin.addRemoveUser(self, False, entry.get(), "yes"), self.adminHome()])
+        button.pack()
+
+
+
+
 
     def print_All(self):
         admin_objects = admin.add_admin()
