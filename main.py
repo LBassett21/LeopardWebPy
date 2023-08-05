@@ -1,9 +1,7 @@
 import tkinter as tk
-from tkinter import Label
 from tkinter import *
 from PIL import ImageTk,Image
 import webview
-# import database
 import sqlite3
 from tkinter import ttk
 
@@ -11,8 +9,6 @@ import admin
 from admin import Admin
 from student import student
 from instructor import instructor
-import database
-
 
 # creates sql databases called courses.db and userinfo.db on the local dir
 db = sqlite3.connect('leopardweb.db')
@@ -76,6 +72,48 @@ class app:
         text_widget = tk.Label(white_frame, text=warning_text, font=("Roboto", 10), bg="white", wraplength=350, anchor="w")
         text_widget.pack(pady=(0, 10))
 
+    def checkLogin(self, username, password):
+
+        print(username)
+        print(password)
+
+        cursor.execute("""SELECT * FROM STUDENT""")
+        debug = cursor.fetchall()
+        print(debug)
+
+        cursor.execute("""SELECT * FROM admin WHERE EMAIL=? AND ID=?""", (username, password))
+        admin_data = cursor.fetchone()
+
+        cursor.execute("""SELECT * FROM instructor WHERE EMAIL=? AND ID=?""", (username, password))
+        instructor_data = cursor.fetchone()
+
+        cursor.execute("""SELECT * FROM student WHERE EMAIL=? AND ID=?""", (username, password))
+        student_data = cursor.fetchone()
+
+        if admin_data:
+            print("Welcome, Admin!")
+            print(admin_data)
+            admin_instance = Admin(admin_data[0],admin_data[1],admin_data[2],admin_data[3],admin_data[4],admin_data[5])
+            self.logged_in_id = admin_data[0]
+            self.adminHome()
+            return admin_instance
+        elif instructor_data:
+            print("Welcome, Instructor!")
+            print(instructor_data)
+            instructor_instance = instructor(instructor_data[0],instructor_data[1],instructor_data[2],instructor_data[3],instructor_data[4],instructor_data[5],instructor_data[6], instructor_data[7])
+            self.logged_in_id = instructor_data[0]
+            self.instructorHome()
+            return instructor_instance
+        elif student_data:
+            print("Welcome, Student!")
+            print(student_data)
+            student_instance = student(student_data[0], student_data[1],student_data[2],student_data[3],student_data[4],student_data[5], student_data[6])
+            self.logged_in_id = student_data[0]
+            self.studentHome()
+            return student_instance
+
+        else:
+            print("Incorrect username or password, please try again")
 
     def adminHome(self):
         for i in self.master.winfo_children():
@@ -957,10 +995,10 @@ class app:
         tree.heading("#7", text="Type")
         tree.heading("#8", text="Credit Hours")
 
-        logged_in_id = [student.getID(self)]
+        print(self.logged_in_id)
 
-        cursor.execute("SELECT COURSES FROM STUDENT WHERE ID=?", (logged_in_id,))
-        courses_data = cursor.fetchone()[0]
+        cursor.execute("SELECT COURSES FROM STUDENT WHERE ID=?", (self.logged_in_id,))
+        courses_data = cursor.fetchone()
         courses_data = [int(crn.strip()) for crn in courses_data.split(',')]
 
         for row_index, crn in enumerate(courses_data, start=1):
@@ -1765,48 +1803,6 @@ class app:
 
         blue2_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" %(0,51,102), height=2)
         blue2_bar.pack(fill="x")
-
-    def checkLogin(self, username, password):
-
-        print(username)
-        print(password)
-
-        cursor.execute("""SELECT * FROM STUDENT""")
-        debug = cursor.fetchall()
-        print(debug)
-
-        cursor.execute("""SELECT * FROM admin WHERE EMAIL=? AND ID=?""", (username, password))
-        admin_data = cursor.fetchone()
-
-        cursor.execute("""SELECT * FROM instructor WHERE EMAIL=? AND ID=?""", (username, password))
-        instructor_data = cursor.fetchone()
-
-        cursor.execute("""SELECT * FROM student WHERE EMAIL=? AND ID=?""", (username, password))
-        student_data = cursor.fetchone()
-
-        if admin_data:
-            print("Welcome, Admin!")
-            self.adminHome()
-            print(admin_data)
-            Admin(admin_data[0],admin_data[1],admin_data[2],admin_data[3],admin_data[4],admin_data[5])
-
-            return Admin(*admin_data)
-        elif instructor_data:
-            print("Welcome, Instructor!")
-            self.instructorHome()
-            print(instructor_data)
-            instructor(instructor_data[0],instructor_data[1],instructor_data[2],instructor_data[3],instructor_data[4],instructor_data[5],instructor_data[6])
-
-            return instructor(*instructor_data)
-        elif student_data:
-            print("Welcome, Student!")
-            print(student_data)
-            student(student_data[0], student_data[1],student_data[2],student_data[3],student_data[4],student_data[5])
-            self.studentHome()
-            return student(*student_data)
-
-        else:
-            print("Incorrect username or password, please try again")
 
 
 def main():

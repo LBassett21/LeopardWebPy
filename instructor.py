@@ -4,13 +4,13 @@ db = sqlite3.connect('leopardweb.db')
 cursor = db.cursor()
 
 class instructor(user):
-    def __init__(self, ID, firstname, lastname, title, yearofhire, department, email):
+    def __init__(self, ID, firstname, lastname, title, yearofhire, department, email, schedule):
         super().__init__(ID, firstname, lastname)
         self.title = title
         self.yearofhire = yearofhire
         self.department = department
         self.email = email
-        self.schedule = []
+        self.schedule = schedule
 
     # Prints the schedule of the user based on the CRN's in their schedule
     def printSchedule(self):

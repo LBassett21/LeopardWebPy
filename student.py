@@ -6,12 +6,12 @@ cursor = db.cursor()
 
 # Student class definition.
 class student(user):
-    def __init__(self, ID, firstname, lastname, expdgradyr, major, email):
+    def __init__(self, ID, firstname, lastname, expdgradyr, major, email, schedule):
         super().__init__(ID, firstname, lastname)
         self.expdgradyr = expdgradyr
         self.major = major
         self.email = email
-        self.schedule = [] # Schedule is a list of CRN's that can be added
+        self.schedule = schedule
     # Searches for course
     def searchCourse(self):
         # Opens up courses database
