@@ -73,10 +73,10 @@ class app:
         self.pw_txt = tk.Label(white_frame, text='Password:', font=("Roboto", 10), bg="white")
         self.pw_txt.pack(pady=5, padx=10, anchor="w")
         entry2 = Entry(white_frame, width=40, font=("Arial", 12), show="*")
-        #entry2 = Entry(white_frame, show="*")      #Uncomment for final version
         entry2.pack(pady=5)
         self.login_btn = Button(white_frame, text="LOGIN", width=20, relief="raised", bg="#%02x%02x%02x" %(209,0,3), fg="white", font=("Roboto", 20), command=lambda: self.checkLogin(entry1.get(), entry2.get()))
         self.login_btn.pack(pady=10)
+
         warning_text = "For security reasons, please log out and exit your web browser when you are done accessing services that require authentication!"
         text_widget = tk.Label(white_frame, text=warning_text, font=("Roboto", 10), bg="white", wraplength=350, anchor="w")
         text_widget.pack(pady=(0, 10))
@@ -927,9 +927,50 @@ class app:
         yellow_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (204, 204, 0), height=3)
         yellow_bar.pack(fill="x")
 
+        crn_frame = tk.Frame(self.frame2)
+        crn_frame.pack(padx=10, pady=10)
+
+        crn_entries = []
+        for i in range(8):
+            crn_entry = tk.Entry(crn_frame)
+            crn_entry.pack(side="left", padx=5)
+            crn_entries.append(crn_entry)
+
+        submit_btn = tk.Button(self.frame2, text="Submit", command=lambda: self.studentUnfinishedPage())
+        submit_btn.pack(padx=10, pady=10)
+
+        courses_frame = tk.Frame(self.frame2)
+        courses_frame.pack(anchor="w", padx=10, pady=10)
+
+        # Define column headers for the table
+        columns = ["CRN", "Subject", "Course Number", "Section Number", "Title", "Type", "Credit Hours"]
+
+        # Create labels for column headers
+        for col_index, col_name in enumerate(columns):
+            col_label = Label(courses_frame, text=col_name, font=("Roboto", 12, "bold"))
+            col_label.grid(row=0, column=col_index, padx=5, pady=5, sticky="w")
+
+        for widget in courses_frame.winfo_children():
+            widget.destroy()  # Clear the existing table
+
+        # logged_in_id =
+        #
+        # cursor.execute("SELECT courses FROM users WHERE ID=?", (logged_in_id,))
+        # courses_data = cursor.fetchone()[0]
+        # courses_data = [int(crn.strip()) for crn in courses_data.split(',')]
+        #
+        # for row_index, crn in enumerate(courses_data, start=1):
+        #     cursor.execute("SELECT * FROM courses WHERE crn=?", (crn,))
+        #     course = cursor.fetchone()
+        #
+        #     if course:
+        #         for col_index, col_name in enumerate(columns):
+        #             col_value = course[col_index]
+        #             col_label = Label(courses_frame, text=col_value, font=("Roboto", 12))
+        #             col_label.grid(row=row_index, column=col_index, padx=5, pady=5, sticky="w")
+
         blue2_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" %(0,51,102), height=2)
         blue2_bar.pack(fill="x")
-
 
     def studentRecords(self):
         for i in self.master.winfo_children():
@@ -1729,7 +1770,6 @@ class app:
         debug = cursor.fetchall()
         print(debug)
 
-
         cursor.execute("""SELECT * FROM admin WHERE EMAIL=? AND ID=?""", (username, password))
         admin_data = cursor.fetchone()
 
@@ -1743,7 +1783,6 @@ class app:
 
         if admin_data:
             print("Welcome, Admin!")
-            access_granted = True
             self.adminHome()
             print(admin_data)
             Admin(admin_data[0],admin_data[1],admin_data[2],admin_data[3],admin_data[4],admin_data[5])
@@ -1751,7 +1790,6 @@ class app:
             return Admin(*admin_data)
         elif instructor_data:
             print("Welcome, Instructor!")
-            access_granted = True
             self.instructorHome()
             print(instructor_data)
             instructor(instructor_data[0],instructor_data[1],instructor_data[2],instructor_data[3],instructor_data[4],instructor_data[5],instructor_data[6])
@@ -1759,8 +1797,6 @@ class app:
             return instructor(*instructor_data)
         elif student_data:
             print("Welcome, Student!")
-            access_granted = True
-            loggedinUser = student(*student_data)
             print(student_data)
             student(student_data[0], student_data[1],student_data[2],student_data[3],student_data[4],student_data[5])
             self.studentHome()
