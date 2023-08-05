@@ -166,38 +166,83 @@ class app:
         home_btn = Button(self.frame2, text="Main Menu", command=lambda: self.adminHome())
         home_btn.pack(anchor="e", padx=10)
 
-        main_menu_label = tk.Label(self.frame2, text="Main Menu", font=("Roboto", 16))
+        main_menu_label = tk.Label(self.frame2, text="All Users", font=("Roboto", 16))
         main_menu_label.pack(anchor="w", padx=3, pady=15)
         yellow_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (204, 204, 0), height=3)
         yellow_bar.pack(fill="x")
-        self.label = tk.Label(self.frame2, text="------Students-------", font=("Roboto", 14)).place(x=100, y=295)
+        self.label = tk.Label(self.frame2, text="Students", font=("Roboto", 14)).place(x=200, y=295)
 
         cursor.execute("""SELECT * FROM STUDENT""")
         student_info = cursor.fetchall()
-        x = 300
-        for row in student_info:
-            self.label = tk.Label(self.frame2, text=row,font=("Roboto", 10)).place(x=100, y=x)
-            print(row)
-            x += 20
 
-        self.label = tk.Label(self.frame2, text="------Instructors-------", font=("Roboto", 12)).place(x=700, y=295)
+        self.label = tk.Label(self.frame2, text='ID', font=("Roboto", 10)).place(x=50, y=350)
+        self.label = tk.Label(self.frame2, text="NAME", font=("Roboto", 10)).place(x=100, y=350)
+        self.label = tk.Label(self.frame2, text="SURNAME", font=("Roboto", 10)).place(x=150, y=350)
+        self.label = tk.Label(self.frame2, text="GRAD YEAR", font=("Roboto", 10)).place(x=250, y=350)
+        self.label = tk.Label(self.frame2, text="MAJOR", font=("Roboto", 10)).place(x=400, y=350)
+        self.label = tk.Label(self.frame2, text="EMAIL", font=("Roboto", 10)).place(x=500, y=350)
+
+
+
+        y = 375
+
+        for row in student_info:
+            self.label = tk.Label(self.frame2, text=row[0], font=("Roboto", 10)).place(x=50, y=y)
+            self.label = tk.Label(self.frame2, text=row[1], font=("Roboto", 10)).place(x=100, y=y)
+            self.label = tk.Label(self.frame2, text=row[2], font=("Roboto", 10)).place(x=150, y=y)
+            self.label = tk.Label(self.frame2, text=row[3], font=("Roboto", 10)).place(x=250, y=y)
+            self.label = tk.Label(self.frame2, text=row[4], font=("Roboto", 10)).place(x=400, y=y)
+            self.label = tk.Label(self.frame2, text=row[5], font=("Roboto", 10)).place(x=500, y=y)
+
+            print(row)
+
+            y += 20
+
+        self.label = tk.Label(self.frame2, text="Instructors", font=("Roboto", 14)).place(x=700, y=295)
 
         cursor.execute("""SELECT * FROM INSTRUCTOR""")
         student_info = cursor.fetchall()
-        x = 300
+        self.label = tk.Label(self.frame2, text='ID', font=("Roboto", 10)).place(x=650, y=350)
+        self.label = tk.Label(self.frame2, text="NAME", font=("Roboto", 10)).place(x=725, y=350)
+        self.label = tk.Label(self.frame2, text="SURNAME" ,font=("Roboto", 10)).place(x=800, y=350)
+        self.label = tk.Label(self.frame2, text="TITLE", font=("Roboto", 10)).place(x=875, y=350)
+        self.label = tk.Label(self.frame2, text="HIRE YEAR", font=("Roboto", 10)).place(x=975, y=350)
+        self.label = tk.Label(self.frame2, text="DEPT.", font=("Roboto", 10)).place(x=1100, y=350)
+        self.label = tk.Label(self.frame2, text="EMAIL", font=("Roboto", 10)).place(x=1175, y=350)
+        y = 375
         for row in student_info:
-            self.label = tk.Label(self.frame2, text=row, font=("Roboto", 10)).place(x=700, y=x)
+            self.label = tk.Label(self.frame2, text=row[0], font=("Roboto", 10)).place(x=650, y=y)
+            self.label = tk.Label(self.frame2, text=row[1], font=("Roboto", 10)).place(x=725, y=y)
+            self.label = tk.Label(self.frame2, text=row[2], font=("Roboto", 10)).place(x=800, y=y)
+            self.label = tk.Label(self.frame2, text=row[3], font=("Roboto", 10)).place(x=875, y=y)
+            self.label = tk.Label(self.frame2, text=row[4], font=("Roboto", 10)).place(x=975, y=y)
+            self.label = tk.Label(self.frame2, text=row[5], font=("Roboto", 10)).place(x=1100, y=y)
+            self.label = tk.Label(self.frame2, text=row[6], font=("Roboto", 10)).place(x=1175, y=y)
             print(row)
-            x += 20
+            y += 20
 
-        self.label = tk.Label(self.frame2, text="------Admins-------", font=("Roboto", 12)).place(x=1200, y=295)
+        self.label = tk.Label(self.frame2, text="Admins", font=("Roboto", 14)).place(x=1500, y=295)
         cursor.execute("""SELECT * FROM ADMIN""")
         student_info = cursor.fetchall()
-        x = 300
+
+        self.label = tk.Label(self.frame2, text='ID', font=("Roboto", 10)).place(x=1300, y=350)
+        self.label = tk.Label(self.frame2, text="NAME", font=("Roboto", 10)).place(x=1375, y=350)
+        self.label = tk.Label(self.frame2, text="SURNAME", font=("Roboto", 10)).place(x=1475, y=350)
+        self.label = tk.Label(self.frame2, text="TITLE", font=("Roboto", 10)).place(x=1550, y=350)
+        self.label = tk.Label(self.frame2, text="OFFICE", font=("Roboto", 10)).place(x=1650, y=350)
+        self.label = tk.Label(self.frame2, text="EMAIL", font=("Roboto", 10)).place(x=1800, y=350)
+
+        y = 375
         for row in student_info:
-            self.label = tk.Label(self.frame2, text=row, font=("Roboto", 10)).place(x=1200, y=x)
+            self.label = tk.Label(self.frame2, text=row[0], font=("Roboto", 10)).place(x=1300, y=y)
+            self.label = tk.Label(self.frame2, text=row[1], font=("Roboto", 10)).place(x=1375, y=y)
+            self.label = tk.Label(self.frame2, text=row[2], font=("Roboto", 10)).place(x=1475, y=y)
+            self.label = tk.Label(self.frame2, text=row[3], font=("Roboto", 10)).place(x=1550, y=y)
+            self.label = tk.Label(self.frame2, text=row[4], font=("Roboto", 10)).place(x=1650, y=y)
+            self.label = tk.Label(self.frame2, text=row[5], font=("Roboto", 10)).place(x=1800, y=y)
+
             print(row)
-            x += 20
+            y += 20
 
 
     def adminModStudent(self):
