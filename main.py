@@ -5,6 +5,7 @@ from PIL import ImageTk,Image
 import webview
 # import database
 import sqlite3
+from tkinter import ttk
 
 import admin
 from admin import Admin
@@ -817,8 +818,6 @@ class app:
         self.login_btn = tk.Button(self.frame5, text="Submit", command=lambda: self.studentUnfinishedPage())
         self.login_btn.pack()
 
-
-# NEED TO ADD THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     def courseSectionSearch(self):
         for i in self.master.winfo_children():
             i.destroy()
@@ -854,6 +853,101 @@ class app:
 
         yellow_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (204, 204, 0), height=3)
         yellow_bar.pack(fill="x")
+
+        coursesCur.execute("SELECT DISTINCT term FROM courses")
+        result = coursesCur.fetchall()
+
+        semester_term_list = [term[0] for term in result]
+
+        selected_term = tk.StringVar(self.frame2, semester_term_list[0])
+
+        semester_year_label = tk.Label(self.frame2, text="Select a Term for Class Search:")
+        semester_year_label.pack(anchor="w", padx=3, pady=10)
+
+        semester_year_dropdown = tk.OptionMenu(self.frame2, selected_term, *semester_term_list)
+        semester_year_dropdown.pack(anchor="w", padx=3)
+
+        coursesCur.execute("SELECT DISTINCT subject FROM courses")
+        result_subjects = coursesCur.fetchall()
+        subject_list = [subject[0] for subject in result_subjects]
+        selected_subject = tk.StringVar(self.frame2, subject_list[0])
+        subject_label = tk.Label(self.frame2, text="Select a Subject:")
+        subject_label.pack(anchor="w", padx=3, pady=10)
+        subject_dropdown = tk.OptionMenu(self.frame2, selected_subject, *subject_list)
+        subject_dropdown.pack(anchor="w", padx=3)
+
+        search_btn = Button(self.frame2, text="Submit", command=lambda: self.show_selected_data(selected_term.get(), selected_subject.get()))
+        search_btn.pack(anchor="w", padx=3, pady=2)
+
+        blue2_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (0, 51, 102), height=2)
+        blue2_bar.pack(fill="x")
+
+    def show_selected_data(self, term, subject):
+        for i in self.master.winfo_children():
+            i.destroy()
+
+        self.frame2 = Frame(self.master)
+        self.frame2.pack(fill=tk.BOTH, expand=True)
+        banner_image = Image.open("banner.png")
+        self.banner = ImageTk.PhotoImage(banner_image)
+        banner_label = tk.Label(self.frame2, image=self.banner)
+        banner_label.pack(anchor="nw")
+
+        button_frame = tk.Frame(self.frame2)
+        button_frame.pack(fill="x", padx=10)
+
+        personal_info_btn = Button(button_frame, text="Personal Information", bg="grey",
+                                   command=lambda: self.studentPersonalInfo())
+        personal_info_btn.pack(side="left")
+
+        student_btn = Button(button_frame, text="Student", bg="grey", command=lambda: self.student())
+        student_btn.pack(side="left")
+
+        blue_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (0, 51, 102), height=2)
+        blue_bar.pack(fill="x")
+
+        exit_btn = Button(self.frame2, text="EXIT", command=lambda: self.login())
+        exit_btn.pack(anchor="e", padx=10, pady=10)
+
+        exit_btn = Button(self.frame2, text="Main Menu", command=lambda: self.studentHome())
+        exit_btn.pack(anchor="e", padx=10)
+
+        main_menu_label = tk.Label(self.frame2, text="Course Section Search", font=("Roboto", 16))
+        main_menu_label.pack(anchor="w", padx=3, pady=15)
+
+        yellow_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (204, 204, 0), height=3)
+        yellow_bar.pack(fill="x")
+
+        coursesCur.execute("SELECT * FROM courses WHERE term = ? AND subject = ?", (term, subject))
+        data = coursesCur.fetchall()
+
+        tree = ttk.Treeview(self.frame2)
+        tree["columns"] = ("#1", "#2", "#3", "#4", "#5", "#6", "#7", "#8")
+        tree.column("#0", width=0, stretch=tk.NO)
+        tree.column("#1", anchor=tk.W)
+        tree.column("#2", anchor=tk.W)
+        tree.column("#3", anchor=tk.W)
+        tree.column("#4", anchor=tk.W)
+        tree.column("#5", anchor=tk.W)
+        tree.column("#6", anchor=tk.W)
+        tree.column("#7", anchor=tk.W)
+        tree.column("#8", anchor=tk.W)
+        tree.heading("#1", text="CRN")
+        tree.heading("#2", text="Subject")
+        tree.heading("#3", text="Course Number")
+        tree.heading("#4", text="Section Number")
+        tree.heading("#5", text="Title")
+        tree.heading("#6", text="Term")
+        tree.heading("#7", text="Type")
+        tree.heading("#8", text="Credit Hours")
+
+        for row in data:
+            tree.insert("", tk.END, values=row)
+
+        tree.pack()
+
+        back_btn = Button(self.frame2, text="Go Back To Search", command=lambda: self.courseSectionSearch())
+        back_btn.pack(anchor="w", padx=3, pady=2)
 
         blue2_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (0, 51, 102), height=2)
         blue2_bar.pack(fill="x")
