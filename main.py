@@ -325,12 +325,12 @@ class app:
         home_btn = Button(self.frame2, text="Main Menu", command=lambda: self.adminHome())
         home_btn.pack(anchor="e", padx=10)
 
-        main_menu_label = tk.Label(self.frame2, text="Modify Student", font=("Roboto", 16))
+        main_menu_label = tk.Label(self.frame2, text="Modify Instructor", font=("Roboto", 16))
         main_menu_label.pack(anchor="w", padx=3, pady=15)
         yellow_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (204, 204, 0), height=3)
         yellow_bar.pack(fill="x")
 
-        label = tk.Label(self.frame2, text="Enter the ID of the user that you would like to edit")
+        label = tk.Label(self.frame2, text="Enter the ID of the Instructor that you would like to edit")
         label.pack()
         entry = tk.Entry(self.frame2)
         entry.pack()
@@ -388,7 +388,7 @@ class app:
         entry.pack()
         label = tk.Label(self.frame2, text="Enter the number associated with the feature you would like to change")
         label.pack()
-        label = tk.Label(self.frame2, text="(1) ID, (2) Firstname, (3) Lastname, (4) Title, (5) Office, (6) Email")
+        label = tk.Label(self.frame2, text="(1) ID, (2) Firstname, (3) Lastname, (4) Expected Graduation Year, (5) Major, (6) Email")
         label.pack()
         entry2 = tk.Entry(self.frame2)
         entry2.pack()
@@ -396,7 +396,7 @@ class app:
         label.pack()
         entry3 = tk.Entry(self.frame2)
         entry3.pack()
-        button = tk.Button(self.frame2, text = "Continue", command =lambda: [Admin.modUserAdmin(self, entry.get() ,entry2.get(), entry3.get(), ), self.adminHome() ] )
+        button = tk.Button(self.frame2, text = "Continue", command =lambda: [Admin.modUserStudent(self, entry.get() ,entry2.get(), entry3.get() ), self.adminHome() ] )
         button.pack()
 
         blue2_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" %(0,51,102), height=2)

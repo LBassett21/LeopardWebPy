@@ -207,9 +207,48 @@ class Admin(user):
                 case _:
                     print("Invalid input!")
 
-
-
-
+    def modUserStudent(self, ID, choice, newVal):
+        editID = ID
+        cursor.execute("""SELECT ID FROM student WHERE ID=?""", (editID,))
+        student_check = cursor.fetchone()
+        if student_check:
+            print("1. ID Number")
+            print("2. First Name")
+            print("3. Last Name")
+            print("4. Expected Graduation Year")
+            print("5. Major")
+            print("6. Email")
+            print("7. Exit")
+            choice = choice
+            match choice:
+                case "1":
+                    newID = newVal
+                    cursor.execute("""UPDATE student SET ID = ? WHERE ID = ?""", (newID, editID,))
+                    db.commit()
+                case "2":
+                    newFN = newVal
+                    cursor.execute("""UPDATE student SET NAME = ? WHERE ID = ?""", (newFN, editID,))
+                    db.commit()
+                case "3":
+                    newLN = newVal
+                    cursor.execute("""UPDATE student SET SURNAME = ? WHERE ID = ?""", (newLN, editID,))
+                    db.commit()
+                case "4":
+                    newGRADYR = newVal
+                    cursor.execute("""UPDATE student SET GRADYEAR = ? WHERE ID = ?""", (newGRADYR, editID,))
+                    db.commit()
+                case "5":
+                    newMajor = newVal
+                    cursor.execute("""UPDATE student SET MAJOR = ? WHERE ID = ?""", (newMajor, editID,))
+                    db.commit()
+                case "6":
+                    newEmail = newVal
+                    cursor.execute("""UPDATE student SET EMAIL = ? WHERE ID = ?""", (newEmail, editID,))
+                    db.commit()
+                case "7":
+                    print("Exiting...")
+                case _:
+                    print("Invalid input!")
 
     def modifyUser(self):
         print("Enter the ID of the user that you would like to edit")
