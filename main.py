@@ -17,7 +17,7 @@ import database
 # creates sql databases called courses.db and userinfo.db on the local dir
 coursesdb = sqlite3.connect("courses.db")
 userinfodb = sqlite3.connect("userinfo.db")
-db = sqlite3.connect('assignment3.db')
+db = sqlite3.connect('leopardweb.db')
 cursor = db.cursor()
 
 coursesCur = coursesdb.cursor()

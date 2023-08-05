@@ -2,7 +2,7 @@ from user import user
 from instructor import instructor
 from student import student
 import sqlite3
-db = sqlite3.connect('assignment3.db')
+db = sqlite3.connect('leopardweb.db')
 cursor = db.cursor()
 
 class Admin(user):

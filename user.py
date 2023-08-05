@@ -1,5 +1,5 @@
 import sqlite3
-db = sqlite3.connect('assignment3.db')
+db = sqlite3.connect('leopardweb.db')
 cursor = db.cursor()
 
 
