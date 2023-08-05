@@ -771,7 +771,6 @@ class app:
         blue2_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" %(0,51,102), height=2)
         blue2_bar.pack(fill="x")
 
-    # NEED TO ADD REGISTER FOR CLASS INFO HERE!!!!!!!!!!!!!!!!!!
     def register(self):
         for i in self.master.winfo_children():
             i.destroy()
@@ -1185,12 +1184,55 @@ class app:
         blue2_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (0, 51, 102), height=2)
         blue2_bar.pack(fill="x")
 
-    def registratation(self):
+    def reg_and_planning(self):
         for i in self.master.winfo_children():
             i.destroy()
-            self.frame5 = Frame(self.master, width=300, height=300)
-            self.frame5.pack()
-            # self.button = tk.Button(self.frame5, text= "show courses", command= lambda: )
+
+        self.frame2 = Frame(self.master)
+        self.frame2.pack(fill=tk.BOTH, expand=True)
+
+        banner_image = Image.open("banner.png")
+        self.banner = ImageTk.PhotoImage(banner_image)
+        banner_label = tk.Label(self.frame2, image=self.banner)
+        banner_label.pack(anchor="nw")
+
+        button_frame = tk.Frame(self.frame2)
+        button_frame.pack(fill="x", padx=10)
+
+        personal_info_btn = Button(button_frame, text="Personal Information", bg="grey",
+                                   command=lambda: self.studentPersonalInfo())
+        personal_info_btn.pack(side="left")
+
+        student_btn = Button(button_frame, text="Student", bg="grey", command=lambda: self.student())
+        student_btn.pack(side="left")
+
+        blue_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (0, 51, 102), height=2)
+        blue_bar.pack(fill="x")
+
+        exit_btn = Button(self.frame2, text="EXIT", command=lambda: self.login())
+        exit_btn.pack(anchor="e", padx=10, pady=10)
+
+        exit_btn = Button(self.frame2, text="Main Menu", command=lambda: self.studentHome())
+        exit_btn.pack(anchor="e", padx=10)
+
+        main_menu_label = tk.Label(self.frame2, text="Registration and Planning", font=("Roboto", 16))
+        main_menu_label.pack(anchor="w", padx=3, pady=15)
+
+        yellow_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (204, 204, 0), height=3)
+        yellow_bar.pack(fill="x")
+
+        course_search_btn = Button(self.frame2, text="Course Section Search",
+                                   command=lambda: self.courseSectionSearch())
+        course_search_btn.pack(anchor="w", padx=3, pady=2)
+
+        course_catalog_btn = Button(self.frame2, text="Course Catalog", command=lambda: self.courseCatalog())
+        course_catalog_btn.pack(anchor="w", padx=3, pady=2)
+
+        reg_btn = Button(self.frame2, text="Register for Course", command=lambda: self.register())
+        reg_btn.pack(anchor="w", padx=3, pady=2)
+
+        blue2_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" %(0,51,102), height=2)
+        blue2_bar.pack(fill="x")
 
     def financial(self):
         for i in self.master.winfo_children():
@@ -1278,7 +1320,7 @@ class app:
         yellow_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (204, 204, 0), height=3)
         yellow_bar.pack(fill="x")
 
-        reg_plan_btn = Button(self.frame2, text="Registration and Planning", command=lambda: self.studentUnfinishedPage())
+        reg_plan_btn = Button(self.frame2, text="Registration and Planning", command=lambda: self.reg_and_planning())
         reg_plan_btn.pack(anchor="w", padx=3, pady=2)
 
         marks_yacht_btn = Button(self.frame2, text="E-Bill", command=lambda: self.open_marks_toy_window())
