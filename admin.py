@@ -382,61 +382,6 @@ class Admin(user):
                     case _:
                         print("Invalid input!")
 
-
-# function to add admin's to a list of objets
-def add_admin():
-    admin_list = []
-    cursor.execute("""SELECT * FROM admin""")
-    all_admin_info = cursor.fetchall()
-
-    for admin_info in all_admin_info:
-        ID, first_name, last_name, title, office, email = admin_info
-        existing_admin = next((Admin for Admin in admin_list if Admin.ID == ID), None)
-        if existing_admin:
-            continue
-
-        newadmin = Admin(ID, first_name, last_name, title, office, email)
-        admin_list.append(newadmin)
-
-    return admin_list
-
-
-# function to add students's to a list of objets
-def add_student():
-    student_list = []
-    cursor.execute("""SELECT * FROM student""")
-    all_student_info = cursor.fetchall()
-
-    for student_info in all_student_info:
-        ID, first_name, last_name, expectedgradyear, major, email = student_info
-        existing_student = next((student for student in student_list if student.ID == ID), None)
-        if existing_student:
-            continue
-
-        newstudent = student(ID, first_name, last_name, expectedgradyear, major, email)
-        student_list.append(newstudent)
-
-    return student_list
-
-
-# function to add instructors's to a list of objets
-def add_instructor():
-    instructor_list = []
-    cursor.execute("""SELECT * FROM instructor""")
-    all_instructor_info = cursor.fetchall()
-
-    for instructor_info in all_instructor_info:
-        ID, first_name, last_name, title, yearofhire, department, email = instructor_info
-        existing_instructor = next((instructor for instructor in instructor_list if instructor.ID == ID), None)
-        if existing_instructor:
-            continue
-
-        newinstructor = instructor(ID, first_name, last_name, title, yearofhire, department, email)
-        instructor_list.append(newinstructor)
-
-    return instructor_list
-
-
 # Adds a new admin to the database
 def new_admin(ID, firstname, lastname, title, office, email):
     cursor.execute("""SELECT ID FROM admin WHERE ID=?""", (ID,))
@@ -486,41 +431,4 @@ def new_student(ID, first_name, last_name, expectedgradyear, major, email):
         db.commit()
 
 
-# Print's the database at start of program
-def print_database():
-
-    admin_objects = add_admin()
-    student_objects = add_student()
-    instructor_object = add_instructor()
-
-    print("----- Students -----")
-    for student in student_objects:
-        print(student.ID, student.firstname, student.lastname, student.expdgradyr, student.major, student.email)
-
-    print("----- Instructors -----")
-    for instructor in instructor_object:
-        print(instructor.ID, instructor.firstname, instructor.lastname, instructor.title, instructor.yearofhire,
-              instructor.department, instructor.email)
-
-    print("----- Admins -----")
-    for Admin in admin_objects:
-        print(Admin.ID, Admin.firstname, Admin.lastname, Admin.title, Admin.office, Admin.email)
-
-
-# Init functions when program is run
-admin_objects = add_admin()
-student_objects = add_student()
-instructor_object = add_instructor()
-# print_database()
-
-
-# Converts the 24 hour format to 12 hour format for schedule printing
-def convert_time_format(time):
-    hours, minutes = time.split(':')
-    period = 'AM' if int(hours) < 12 else 'PM'
-
-    if int(hours) > 12:
-        hours = str(int(hours) - 12)
-
-    return f"{hours}:{minutes} {period}"
 

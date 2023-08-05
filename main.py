@@ -15,13 +15,8 @@ import database
 
 
 # creates sql databases called courses.db and userinfo.db on the local dir
-coursesdb = sqlite3.connect("courses.db")
-userinfodb = sqlite3.connect("userinfo.db")
 db = sqlite3.connect('leopardweb.db')
 cursor = db.cursor()
-
-coursesCur = coursesdb.cursor()
-userinfoCur=userinfodb.cursor()
 
 TRANSCRIPTOPTIONBOX1 = ["All Levels", "Undergraduate"]
 TRANSCRIPTOPTIONBOX2 = ["Self Service"]
@@ -190,9 +185,6 @@ class app:
 
 
     def print_All(self):
-        admin_objects = admin.add_admin()
-        student_objects = admin.add_student()
-        instructor_object = admin.add_instructor()
 
         for i in self.master.winfo_children():
             i.destroy()
@@ -942,32 +934,41 @@ class app:
         courses_frame = tk.Frame(self.frame2)
         courses_frame.pack(anchor="w", padx=10, pady=10)
 
-        # Define column headers for the table
-        columns = ["CRN", "Subject", "Course Number", "Section Number", "Title", "Type", "Credit Hours"]
-
-        # Create labels for column headers
-        for col_index, col_name in enumerate(columns):
-            col_label = Label(courses_frame, text=col_name, font=("Roboto", 12, "bold"))
-            col_label.grid(row=0, column=col_index, padx=5, pady=5, sticky="w")
-
         for widget in courses_frame.winfo_children():
             widget.destroy()  # Clear the existing table
 
-        # logged_in_id =
-        #
-        # cursor.execute("SELECT courses FROM users WHERE ID=?", (logged_in_id,))
-        # courses_data = cursor.fetchone()[0]
-        # courses_data = [int(crn.strip()) for crn in courses_data.split(',')]
-        #
-        # for row_index, crn in enumerate(courses_data, start=1):
-        #     cursor.execute("SELECT * FROM courses WHERE crn=?", (crn,))
-        #     course = cursor.fetchone()
-        #
-        #     if course:
-        #         for col_index, col_name in enumerate(columns):
-        #             col_value = course[col_index]
-        #             col_label = Label(courses_frame, text=col_value, font=("Roboto", 12))
-        #             col_label.grid(row=row_index, column=col_index, padx=5, pady=5, sticky="w")
+        tree = ttk.Treeview(courses_frame)
+        tree["columns"] = ("#1", "#2", "#3", "#4", "#5", "#6", "#7", "#8")
+        tree.column("#0", width=0, stretch=tk.NO)
+        tree.column("#1", anchor=tk.W)
+        tree.column("#2", anchor=tk.W)
+        tree.column("#3", anchor=tk.W)
+        tree.column("#4", anchor=tk.W)
+        tree.column("#5", anchor=tk.W)
+        tree.column("#6", anchor=tk.W)
+        tree.column("#7", anchor=tk.W)
+        tree.column("#8", anchor=tk.W)
+        tree.heading("#1", text="CRN")
+        tree.heading("#2", text="Subject")
+        tree.heading("#3", text="Course Number")
+        tree.heading("#4", text="Section Number")
+        tree.heading("#5", text="Title")
+        tree.heading("#6", text="Term")
+        tree.heading("#7", text="Type")
+        tree.heading("#8", text="Credit Hours")
+
+        logged_in_id = [student.getID(self)]
+
+        cursor.execute("SELECT COURSES FROM STUDENT WHERE ID=?", (logged_in_id,))
+        courses_data = cursor.fetchone()[0]
+        courses_data = [int(crn.strip()) for crn in courses_data.split(',')]
+
+        for row_index, crn in enumerate(courses_data, start=1):
+            cursor.execute("SELECT * FROM COURSES WHERE CRN=?", (crn,))
+            course = cursor.fetchone()
+
+            if course:
+                tree.insert("", tk.END, values=course)
 
         blue2_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" %(0,51,102), height=2)
         blue2_bar.pack(fill="x")
@@ -1107,10 +1108,10 @@ class app:
         yellow_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (204, 204, 0), height=3)
         yellow_bar.pack(fill="x")
 
-        coursesCur.execute("SELECT DISTINCT term FROM courses")
-        result = coursesCur.fetchall()
+        cursor.execute("SELECT DISTINCT SEMESTER, YEAR  FROM courses")
+        result = cursor.fetchall()
 
-        semester_term_list = [term[0] for term in result]
+        semester_term_list = [f"{SEMESTER} {YEAR}" for SEMESTER, YEAR in result]
 
         selected_term = tk.StringVar(self.frame2, semester_term_list[0])
 
@@ -1120,9 +1121,9 @@ class app:
         semester_year_dropdown = tk.OptionMenu(self.frame2, selected_term, *semester_term_list)
         semester_year_dropdown.pack(anchor="w", padx=3)
 
-        coursesCur.execute("SELECT DISTINCT subject FROM courses")
-        result_subjects = coursesCur.fetchall()
-        subject_list = [subject[0] for subject in result_subjects]
+        cursor.execute("SELECT DISTINCT DEPT FROM courses")
+        result_subjects = cursor.fetchall()
+        subject_list = [SUBJECT[0] for SUBJECT in result_subjects]
         selected_subject = tk.StringVar(self.frame2, subject_list[0])
         subject_label = tk.Label(self.frame2, text="Select a Subject:")
         subject_label.pack(anchor="w", padx=3, pady=10)
@@ -1171,8 +1172,10 @@ class app:
         yellow_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (204, 204, 0), height=3)
         yellow_bar.pack(fill="x")
 
-        coursesCur.execute("SELECT * FROM courses WHERE term = ? AND subject = ?", (term, subject))
-        data = coursesCur.fetchall()
+        semester, year = term.split()
+
+        cursor.execute("SELECT * FROM courses WHERE  SEMESTER = ? AND YEAR = ? AND DEPT = ?", (semester, year, subject))
+        data = cursor.fetchall()
 
         tree = ttk.Treeview(self.frame2)
         tree["columns"] = ("#1", "#2", "#3", "#4", "#5", "#6", "#7", "#8")
@@ -1250,10 +1253,10 @@ class app:
         yellow_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (204, 204, 0), height=3)
         yellow_bar.pack(fill="x")
 
-        coursesCur.execute("SELECT DISTINCT term FROM courses")
-        result = coursesCur.fetchall()
+        cursor.execute("SELECT DISTINCT SEMESTER, YEAR  FROM courses")
+        result = cursor.fetchall()
 
-        semester_term_list = [term[0] for term in result]
+        semester_term_list = [f"{SEMESTER} {YEAR}" for SEMESTER, YEAR in result]
 
         selected_term = tk.StringVar(self.frame2, semester_term_list[0])
 
@@ -1311,8 +1314,10 @@ class app:
         yellow_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (204, 204, 0), height=3)
         yellow_bar.pack(fill="x")
 
-        coursesCur.execute("SELECT * FROM courses WHERE term = ? AND crn = ?", (term, crn))
-        data = coursesCur.fetchone()
+        semester, year = term.split()
+
+        cursor.execute("SELECT * FROM courses WHERE  SEMESTER = ? AND YEAR = ? AND CRN = ?", (semester, year, crn))
+        data = cursor.fetchone()
 
         tree = ttk.Treeview(self.frame2)
         tree["columns"] = ("#1", "#2", "#3", "#4", "#5", "#6", "#7", "#8")
@@ -1778,8 +1783,6 @@ class app:
 
         cursor.execute("""SELECT * FROM student WHERE EMAIL=? AND ID=?""", (username, password))
         student_data = cursor.fetchone()
-
-
 
         if admin_data:
             print("Welcome, Admin!")
