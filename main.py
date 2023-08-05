@@ -128,11 +128,76 @@ class app:
         mod_user_btn = Button(self.frame2, text="Modify A User", command=lambda: self.adminModStudent())
         mod_user_btn.pack(anchor="w", padx=3, pady=2)
 
-        print_users_btn = Button(self.frame2, text="Print All Users", command=lambda: admin.print_database())
+        print_users_btn = Button(self.frame2, text="Print All Users", command=lambda: self.print_All())
         print_users_btn.pack(anchor="w", padx=3, pady=2)
 
         blue2_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" %(0,51,102), height=2)
         blue2_bar.pack(fill="x")
+
+    def print_All(self):
+        admin_objects = admin.add_admin()
+        student_objects = admin.add_student()
+        instructor_object = admin.add_instructor()
+
+        for i in self.master.winfo_children():
+            i.destroy()
+
+        self.frame2 = Frame(self.master)
+        self.frame2.pack(fill=tk.BOTH, expand=True)
+
+        banner_image = Image.open("banner.png")
+        self.banner = ImageTk.PhotoImage(banner_image)
+        banner_label = tk.Label(self.frame2, image=self.banner)
+        banner_label.pack(anchor="nw")
+
+        button_frame = tk.Frame(self.frame2)
+        button_frame.pack(fill="x", padx=10)
+
+        student_btn = Button(button_frame, text="Admin", bg="grey", command=lambda: self.adminHome())
+        student_btn.pack(side="left")
+
+        blue_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (0, 51, 102), height=2)
+        blue_bar.pack(fill="x")
+
+        exit_btn = Button(self.frame2, text="EXIT", command=lambda: self.login())
+        exit_btn.pack(anchor="e", padx=10, pady=10)
+
+        home_btn = Button(self.frame2, text="Main Menu", command=lambda: self.adminHome())
+        home_btn.pack(anchor="e", padx=10)
+
+        main_menu_label = tk.Label(self.frame2, text="Main Menu", font=("Roboto", 16))
+        main_menu_label.pack(anchor="w", padx=3, pady=15)
+        yellow_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (204, 204, 0), height=3)
+        yellow_bar.pack(fill="x")
+        self.label = tk.Label(self.frame2, text="------Students-------", font=("Roboto", 14)).place(x=100, y=295)
+
+        cursor.execute("""SELECT * FROM STUDENT""")
+        student_info = cursor.fetchall()
+        x = 300
+        for row in student_info:
+            self.label = tk.Label(self.frame2, text=row,font=("Roboto", 10)).place(x=100, y=x)
+            print(row)
+            x += 20
+
+        self.label = tk.Label(self.frame2, text="------Instructors-------", font=("Roboto", 12)).place(x=700, y=295)
+
+        cursor.execute("""SELECT * FROM INSTRUCTOR""")
+        student_info = cursor.fetchall()
+        x = 300
+        for row in student_info:
+            self.label = tk.Label(self.frame2, text=row, font=("Roboto", 10)).place(x=700, y=x)
+            print(row)
+            x += 20
+
+        self.label = tk.Label(self.frame2, text="------Admins-------", font=("Roboto", 12)).place(x=1200, y=295)
+        cursor.execute("""SELECT * FROM ADMIN""")
+        student_info = cursor.fetchall()
+        x = 300
+        for row in student_info:
+            self.label = tk.Label(self.frame2, text=row, font=("Roboto", 10)).place(x=1200, y=x)
+            print(row)
+            x += 20
+
 
     def adminModStudent(self):
         for i in self.master.winfo_children():
