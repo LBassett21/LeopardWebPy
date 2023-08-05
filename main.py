@@ -17,7 +17,7 @@ import database
 # creates sql databases called courses.db and userinfo.db on the local dir
 coursesdb = sqlite3.connect("courses.db")
 userinfodb = sqlite3.connect("userinfo.db")
-db = sqlite3.connect('assignment3.db')
+db = sqlite3.connect('leopardweb.db')
 cursor = db.cursor()
 
 coursesCur = coursesdb.cursor()
@@ -129,7 +129,13 @@ class app:
         rem_course_btn = Button(self.frame2, text="Remove Course", command=lambda: self.courseRem())
         rem_course_btn.pack(anchor="w", padx=3, pady=2)
 
-        mod_user_btn = Button(self.frame2, text="Modify A User", command=lambda: self.adminModStudent())
+        mod_user_btn = Button(self.frame2, text="Modify An Admin", command=lambda: self.adminModAdmin())
+        mod_user_btn.pack(anchor="w", padx=3, pady=2)
+
+        mod_user_btn = Button(self.frame2, text="Modify An Instructor", command=lambda: self.adminModInstructor())
+        mod_user_btn.pack(anchor="w", padx=3, pady=2)
+
+        mod_user_btn = Button(self.frame2, text="Modify A Student", command=lambda: self.adminModStudent())
         mod_user_btn.pack(anchor="w", padx=3, pady=2)
 
         print_users_btn = Button(self.frame2, text="Print All Users", command=lambda: self.print_All())
@@ -292,6 +298,57 @@ class app:
             print(row)
             y += 20
 
+    def adminModInstructor(self):
+        for i in self.master.winfo_children():
+            i.destroy()
+
+        self.frame2 = Frame(self.master)
+        self.frame2.pack(fill=tk.BOTH, expand=True)
+
+        banner_image = Image.open("banner.png")
+        self.banner = ImageTk.PhotoImage(banner_image)
+        banner_label = tk.Label(self.frame2, image=self.banner)
+        banner_label.pack(anchor="nw")
+
+        button_frame = tk.Frame(self.frame2)
+        button_frame.pack(fill="x", padx=10)
+
+        student_btn = Button(button_frame, text="Admin", bg="grey", command=lambda: self.adminHome())
+        student_btn.pack(side="left")
+
+        blue_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (0, 51, 102), height=2)
+        blue_bar.pack(fill="x")
+
+        exit_btn = Button(self.frame2, text="EXIT", command=lambda: self.login())
+        exit_btn.pack(anchor="e", padx=10, pady=10)
+
+        home_btn = Button(self.frame2, text="Main Menu", command=lambda: self.adminHome())
+        home_btn.pack(anchor="e", padx=10)
+
+        main_menu_label = tk.Label(self.frame2, text="Modify Instructor", font=("Roboto", 16))
+        main_menu_label.pack(anchor="w", padx=3, pady=15)
+        yellow_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (204, 204, 0), height=3)
+        yellow_bar.pack(fill="x")
+
+        label = tk.Label(self.frame2, text="Enter the ID of the Instructor that you would like to edit")
+        label.pack()
+        entry = tk.Entry(self.frame2)
+        entry.pack()
+        label = tk.Label(self.frame2, text="Enter the number associated with the feature you would like to change")
+        label.pack()
+        label = tk.Label(self.frame2, text="(1) ID, (2) Name, (3) Surname, (4) Title, (5) Hire Year, (6) Dept., (7) Email")
+        label.pack()
+        entry2 = tk.Entry(self.frame2)
+        entry2.pack()
+        label = tk.Label(self.frame2, text="New Value")
+        label.pack()
+        entry3 = tk.Entry(self.frame2)
+        entry3.pack()
+        button = tk.Button(self.frame2, text = "Continue", command =lambda: [Admin.modifyInstructor(self, entry.get() ,entry2.get(), entry3.get(), ), self.adminHome() ] )
+        button.pack()
+
+        blue2_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" %(0,51,102), height=2)
+        blue2_bar.pack(fill="x")
 
     def adminModStudent(self):
         for i in self.master.winfo_children():
@@ -329,7 +386,69 @@ class app:
         label.pack()
         entry = tk.Entry(self.frame2)
         entry.pack()
-        button = tk.Button(self.frame2, text = "Continue", command =lambda: [Admin.modUserAdmin(self, entry.get()), self.adminModStudent2()] )
+        label = tk.Label(self.frame2, text="Enter the number associated with the feature you would like to change")
+        label.pack()
+        label = tk.Label(self.frame2, text="(1) ID, (2) Firstname, (3) Lastname, (4) Expected Graduation Year, (5) Major, (6) Email")
+        label.pack()
+        entry2 = tk.Entry(self.frame2)
+        entry2.pack()
+        label = tk.Label(self.frame2, text="New Value")
+        label.pack()
+        entry3 = tk.Entry(self.frame2)
+        entry3.pack()
+        button = tk.Button(self.frame2, text = "Continue", command =lambda: [Admin.modUserStudent(self, entry.get() ,entry2.get(), entry3.get() ), self.adminHome() ] )
+        button.pack()
+
+        blue2_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" %(0,51,102), height=2)
+        blue2_bar.pack(fill="x")
+
+    def adminModAdmin(self):
+        for i in self.master.winfo_children():
+            i.destroy()
+
+        self.frame2 = Frame(self.master)
+        self.frame2.pack(fill=tk.BOTH, expand=True)
+
+        banner_image = Image.open("banner.png")
+        self.banner = ImageTk.PhotoImage(banner_image)
+        banner_label = tk.Label(self.frame2, image=self.banner)
+        banner_label.pack(anchor="nw")
+
+        button_frame = tk.Frame(self.frame2)
+        button_frame.pack(fill="x", padx=10)
+
+        student_btn = Button(button_frame, text="Admin", bg="grey", command=lambda: self.adminHome())
+        student_btn.pack(side="left")
+
+        blue_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (0, 51, 102), height=2)
+        blue_bar.pack(fill="x")
+
+        exit_btn = Button(self.frame2, text="EXIT", command=lambda: self.login())
+        exit_btn.pack(anchor="e", padx=10, pady=10)
+
+        home_btn = Button(self.frame2, text="Main Menu", command=lambda: self.adminHome())
+        home_btn.pack(anchor="e", padx=10)
+
+        main_menu_label = tk.Label(self.frame2, text="Modify Student", font=("Roboto", 16))
+        main_menu_label.pack(anchor="w", padx=3, pady=15)
+        yellow_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (204, 204, 0), height=3)
+        yellow_bar.pack(fill="x")
+
+        label = tk.Label(self.frame2, text="Enter the ID of the user that you would like to edit")
+        label.pack()
+        entry = tk.Entry(self.frame2)
+        entry.pack()
+        label = tk.Label(self.frame2, text="Enter the number associated with the feature you would like to change")
+        label.pack()
+        label = tk.Label(self.frame2, text="(1) ID, (2) Firstname, (3) Lastname, (4) Title, (5) Office, (6) Email")
+        label.pack()
+        entry2 = tk.Entry(self.frame2)
+        entry2.pack()
+        label = tk.Label(self.frame2, text="New Value")
+        label.pack()
+        entry3 = tk.Entry(self.frame2)
+        entry3.pack()
+        button = tk.Button(self.frame2, text = "Continue", command =lambda: [Admin.modUserAdmin(self, entry.get() ,entry2.get(), entry3.get(), ), self.adminHome() ] )
         button.pack()
 
         blue2_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" %(0,51,102), height=2)
