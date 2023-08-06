@@ -969,13 +969,10 @@ class app:
         submit_btn = tk.Button(self.frame2, text="Submit", command=lambda: self.studentUnfinishedPage())
         submit_btn.pack(padx=10, pady=10)
 
-        courses_frame = tk.Frame(self.frame2)
-        courses_frame.pack(anchor="w", padx=10, pady=10)
+        main_menu_label = tk.Label(self.frame2, text="Current Courses", font=("Roboto", 14))
+        main_menu_label.pack(anchor="w", padx=3, pady=5)
 
-        for widget in courses_frame.winfo_children():
-            widget.destroy()  # Clear the existing table
-
-        tree = ttk.Treeview(courses_frame)
+        tree = ttk.Treeview(self.frame2)
         tree["columns"] = ("#1", "#2", "#3", "#4", "#5", "#6", "#7", "#8")
         tree.column("#0", width=0, stretch=tk.NO)
         tree.column("#1", anchor=tk.W)
@@ -995,18 +992,17 @@ class app:
         tree.heading("#7", text="Type")
         tree.heading("#8", text="Credit Hours")
 
-        print(self.logged_in_id)
-
         cursor.execute("SELECT COURSES FROM STUDENT WHERE ID=?", (self.logged_in_id,))
         courses_data = cursor.fetchone()
-        courses_data = [int(crn.strip()) for crn in courses_data.split(',')]
+        courses_string = courses_data[0]
+        crn_list = courses_string.split(',')
 
-        for row_index, crn in enumerate(courses_data, start=1):
-            cursor.execute("SELECT * FROM COURSES WHERE CRN=?", (crn,))
+        for crn_number in crn_list:
+            cursor.execute("SELECT * FROM COURSES WHERE CRN=?", (crn_number,))
             course = cursor.fetchone()
+            tree.insert("", tk.END, values=course)
 
-            if course:
-                tree.insert("", tk.END, values=course)
+        tree.pack(anchor='w', pady=5, padx=10)
 
         blue2_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" %(0,51,102), height=2)
         blue2_bar.pack(fill="x")
