@@ -142,6 +142,9 @@ class app:
         home_btn = Button(self.frame2, text="Main Menu", command=lambda: self.adminHome())
         home_btn.pack(anchor="e", padx=10)
 
+        label = tk.Label(self.frame2, text="ID:" + str(self.logged_in_id))
+        label.pack(anchor="w", padx=3, pady=15)
+
         main_menu_label = tk.Label(self.frame2, text="Main Menu", font=("Roboto", 16))
         main_menu_label.pack(anchor="w", padx=3, pady=15)
         yellow_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (204, 204, 0), height=3)
@@ -927,6 +930,9 @@ class app:
         home_btn = Button(self.frame3, text="Main Menu", command=lambda: self.studentHome())
         home_btn.pack(anchor="e", padx=10)
 
+        label = tk.Label(self.frame3, text = "ID:" + str(self.logged_in_id))
+        label.pack(anchor="w", padx=3, pady=15)
+
         main_menu_label = tk.Label(self.frame3, text="Main Menu", font=("Roboto", 16))
         main_menu_label.pack(anchor="w", padx=3, pady=15)
         yellow_bar = tk.Frame(self.frame3, bg="#%02x%02x%02x" %(204,204,0), height=3)
@@ -984,6 +990,9 @@ class app:
 
         home_btn = Button(self.frame2, text="Main Menu", command=lambda: self.instructorHome())
         home_btn.pack(anchor="e", padx=10)
+
+        label = tk.Label(self.frame2, text="ID:" + str(self.logged_in_id))
+        label.pack(anchor="w", padx=3, pady=15)
 
         main_menu_label = tk.Label(self.frame2, text="Main Menu", font=("Roboto", 16))
         main_menu_label.pack(anchor="w", padx=3, pady=15)
