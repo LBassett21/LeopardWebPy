@@ -44,7 +44,7 @@ class instructor(user):
          print("----------------------")
 
     # Not implemented/added
-    def printClassList(self):
+    def printClassList(self, teacher):
         print("Printed out your class list! Kinda...")
 
     # searches for courses in database (same as student)
