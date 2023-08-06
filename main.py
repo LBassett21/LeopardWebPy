@@ -174,6 +174,10 @@ class app:
         print_users_btn = Button(self.frame2, text="Print All Users", command=lambda: self.print_All())
         print_users_btn.pack(anchor="w", padx=3, pady=2)
 
+        print_users_btn = Button(self.frame2, text="Link Instructor to Course", command=lambda: self.print_All())
+        print_users_btn.pack(anchor="w", padx=3, pady=2)
+
+
         blue2_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" %(0,51,102), height=2)
         blue2_bar.pack(fill="x")
 
@@ -909,15 +913,43 @@ class app:
         yellow_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (204, 204, 0), height=3)
         yellow_bar.pack(fill="x")
 
-        label = Label(self.frame2, text="MONDAY", font=("Roboto", 16)).place(x=100, y=300)
+        # label = Label(self.frame2, text="MONDAY", font=("Roboto", 16)).place(x=100, y=300)
+        #
+        # label = Label(self.frame2, text="TUESDAY", font=("Roboto", 16)).place(x=500, y=300)
+        #
+        # label = Label(self.frame2, text="WEDNESDAY", font=("Roboto", 16)).place(x=900, y=300)
+        #
+        # label = Label(self.frame2, text="THURSDAY", font=("Roboto", 16)).place(x=1300, y=300)
+        #
+        # label = Label(self.frame2, text="FRIDAY", font=("Roboto", 16)).place(x=1600, y=300)
 
-        label = Label(self.frame2, text="TUESDAY", font=("Roboto", 16)).place(x=500, y=300)
+        cursor.execute("""SELECT COURSES FROM INSTRUCTOR WHERE ID=?""", (self.logged_in_id,))
+        student_check = cursor.fetchone()
 
-        label = Label(self.frame2, text="WEDNESDAY", font=("Roboto", 16)).place(x=900, y=300)
+        print(student_check)
+        print(type(student_check))
+        courses_string = student_check[0]
+        self.crn_list = courses_string.split(',')
+        print(self.crn_list)
+        print(type(self.crn_list))
+        print(type(self.crn_list[0]))
 
-        label = Label(self.frame2, text="THURSDAY", font=("Roboto", 16)).place(x=1300, y=300)
+        label = tk.Label(self.frame2, text= "Professors Schedule:", font = ("Roboto", 16)).place(x = 50 , y = 295)
+        x = 0
+        y = 325
+        while x <  len(self.crn_list):
+            print(x)
+            cursor.execute("""SELECT * FROM COURSES WHERE CRN=?""", (self.crn_list[int(x)],))
+            courses = cursor.fetchone()
+            label = tk.Label(self.frame2, text= courses, font = ("Roboto", 12)).place(x = 100, y = y)
+            print(courses)
+            x = x + 1
+            y = y + 25
 
-        label = Label(self.frame2, text="FRIDAY", font=("Roboto", 16)).place(x=1600, y=300)
+
+
+
+
 
     def instructor(self):
         for i in self.master.winfo_children():
