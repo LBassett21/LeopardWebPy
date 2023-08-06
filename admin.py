@@ -111,6 +111,31 @@ class Admin(user):
             else:
                 print("Invalid input!")
 
+    def linkInstructor(self, ID, CRN):
+
+        cursor.execute("SELECT COURSES FROM INSTRUCTOR WHERE ID=?", (ID,))
+        courses_data = cursor.fetchone()
+        courses_string = courses_data[0]
+        # crn_list = courses_string.split(',')
+
+        crn_list = courses_string + ',' + CRN
+        print(crn_list)
+        cursor.execute("UPDATE INSTRUCTOR SET COURSES=? WHERE ID=?", (crn_list, ID))
+        db.commit()
+
+    def linkStudent(self, ID, CRN):
+
+        cursor.execute("SELECT COURSES FROM STUDENT WHERE ID=?", (ID,))
+        courses_data = cursor.fetchone()
+        courses_string = courses_data[0]
+        # crn_list = courses_string.split(',')
+
+        crn_list = courses_string + ',' + CRN
+        print(crn_list)
+        cursor.execute("UPDATE STUDENT SET COURSES=? WHERE ID=?", (crn_list, ID))
+        db.commit()
+
+
     # prints all courses
     def printRoster(self):
         cursor.execute("""SELECT * FROM courses""")
@@ -421,13 +446,32 @@ def new_student(ID, first_name, last_name, expectedgradyear, major, email):
     cursor.execute("""SELECT ID FROM student WHERE ID=?""", (ID,))
     existing_id = cursor.fetchone()
 
-
-
     if existing_id:
         print("Error: User with ID", ID, "already exists.")
     else:
         cursor.execute("""INSERT INTO student (ID, NAME, SURNAME, GRADYEAR, MAJOR, EMAIL) VALUES (?,?,?,?,?,?)""",
                        (ID, first_name, last_name, expectedgradyear, major, email))
+        db.commit()
+
+
+def new_Instructor(ID, first_name, last_name, title, year, dept, email, courses):
+    ID = ID
+    firstname = first_name
+    last_name = last_name
+    title = title
+    year = year
+    dept = dept
+    email = email
+    courses = courses
+
+    cursor.execute("""SELECT ID FROM student WHERE ID=?""", (ID,))
+    existing_id = cursor.fetchone()
+
+    if existing_id:
+        print("Error: User with ID", ID, "already exists.")
+    else:
+        cursor.execute("""INSERT INTO INSTRUCTOR (ID, NAME, SURNAME, TITLE, HIREYEAR,DEPT, EMAIL, COURSES) VALUES (?,?,?,?,?,?,?,?)""",
+                       (ID, first_name, last_name, title, year, dept, email, courses))
         db.commit()
 
 

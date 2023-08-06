@@ -153,6 +153,9 @@ class app:
         add_remove_usr_btn = Button(self.frame2, text="Add Student", command=lambda: self.adminNewStudent())
         add_remove_usr_btn.pack(anchor="w", padx=3, pady=2)
 
+        add_remove_usr_btn = Button(self.frame2, text="Add Instructor", command=lambda: self.addInstructor())
+        add_remove_usr_btn.pack(anchor="w", padx=3, pady=2)
+
         add_course_btn = Button(self.frame2, text="Remove User", command=lambda: self.removeUser())
         add_course_btn.pack(anchor="w", padx=3, pady=2)
 
@@ -174,12 +177,138 @@ class app:
         print_users_btn = Button(self.frame2, text="Print All Users", command=lambda: self.print_All())
         print_users_btn.pack(anchor="w", padx=3, pady=2)
 
-        print_users_btn = Button(self.frame2, text="Link Instructor to Course", command=lambda: self.print_All())
+        print_users_btn = Button(self.frame2, text="Link Instructor to Course", command=lambda: self.linkInstructor())
         print_users_btn.pack(anchor="w", padx=3, pady=2)
 
 
         blue2_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" %(0,51,102), height=2)
         blue2_bar.pack(fill="x")
+
+    def addInstructor(self):
+        for i in self.master.winfo_children():
+            i.destroy()
+
+        self.frame2 = Frame(self.master)
+        self.frame2.pack(fill=tk.BOTH, expand=True)
+
+        banner_image = Image.open("banner.png")
+        self.banner = ImageTk.PhotoImage(banner_image)
+        banner_label = tk.Label(self.frame2, image=self.banner)
+        banner_label.pack(anchor="nw")
+
+        button_frame = tk.Frame(self.frame2)
+        button_frame.pack(fill="x", padx=10)
+
+        student_btn = Button(button_frame, text="Admin", bg="grey", command=lambda: self.adminHome())
+        student_btn.pack(side="left")
+
+        blue_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (0, 51, 102), height=2)
+        blue_bar.pack(fill="x")
+
+        exit_btn = Button(self.frame2, text="EXIT", command=lambda: self.login())
+        exit_btn.pack(anchor="e", padx=10, pady=10)
+
+        home_btn = Button(self.frame2, text="Main Menu", command=lambda: self.adminHome())
+        home_btn.pack(anchor="e", padx=10)
+
+        main_menu_label = tk.Label(self.frame2, text="All Users", font=("Roboto", 16))
+        main_menu_label.pack(anchor="w", padx=3, pady=15)
+        yellow_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (204, 204, 0), height=3)
+        yellow_bar.pack(fill="x")
+
+        label = tk.Label(self.frame2, text="ID")
+        label.pack()
+        ID = tk.Entry(self.frame2)
+        ID.pack()
+        label = tk.Label(self.frame2, text="First Name")
+        label.pack()
+        first = tk.Entry(self.frame2)
+        first.pack()
+        label = tk.Label(self.frame2, text="Last Name")
+        label.pack()
+        last = tk.Entry(self.frame2)
+        last.pack()
+        label = tk.Label(self.frame2, text="Title")
+        label.pack()
+        title = tk.Entry(self.frame2)
+        title.pack()
+        label = tk.Label(self.frame2, text="Hire Year")
+        label.pack()
+        year = tk.Entry(self.frame2)
+        year.pack()
+        label = tk.Label(self.frame2, text="dept")
+        label.pack()
+        dept = tk.Entry(self.frame2)
+        dept.pack()
+        label = tk.Label(self.frame2, text="Email")
+        label.pack()
+        email = tk.Entry(self.frame2)
+        email.pack()
+        label = tk.Label(self.frame2, text="Courses (Seperated with commas)")
+        label.pack()
+        courses = tk.Entry(self.frame2)
+        courses.pack()
+
+
+        button = tk.Button(self.frame2, text="Add New Student", command=lambda: [
+            admin.new_Instructor(ID.get(), first.get(), last.get(),title.get(), year.get(),dept.get(), email.get(), courses.get()),
+            self.adminHome()])
+        button.pack()
+
+        blue2_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (0, 51, 102), height=2)
+        blue2_bar.pack(fill="x")
+
+
+    def linkInstructor(self):
+        for i in self.master.winfo_children():
+            i.destroy()
+
+        self.frame2 = Frame(self.master)
+        self.frame2.pack(fill=tk.BOTH, expand=True)
+
+        banner_image = Image.open("banner.png")
+        self.banner = ImageTk.PhotoImage(banner_image)
+        banner_label = tk.Label(self.frame2, image=self.banner)
+        banner_label.pack(anchor="nw")
+
+        button_frame = tk.Frame(self.frame2)
+        button_frame.pack(fill="x", padx=10)
+
+        student_btn = Button(button_frame, text="Admin", bg="grey", command=lambda: self.adminHome())
+        student_btn.pack(side="left")
+
+        blue_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (0, 51, 102), height=2)
+        blue_bar.pack(fill="x")
+
+        exit_btn = Button(self.frame2, text="EXIT", command=lambda: self.login())
+        exit_btn.pack(anchor="e", padx=10, pady=10)
+
+        home_btn = Button(self.frame2, text="Main Menu", command=lambda: self.adminHome())
+        home_btn.pack(anchor="e", padx=10)
+
+        main_menu_label = tk.Label(self.frame2, text="All Users", font=("Roboto", 16))
+        main_menu_label.pack(anchor="w", padx=3, pady=15)
+        yellow_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (204, 204, 0), height=3)
+        yellow_bar.pack(fill="x")
+
+        label = tk.Label(self.frame2, text= "Enter the ID of the Instructor you will be linking the class to:")
+        label.pack()
+        entry = tk.Entry(self.frame2)
+        entry.pack()
+
+        label = tk.Label(self.frame2, text= "Enter the CRN of the course")
+        label.pack()
+        entry2 = tk.Entry(self.frame2)
+        entry2.pack()
+
+        button = tk.Button(self.frame2, text = "Add Instructor to Course", command=lambda:[Admin.linkInstructor(self, entry.get(), entry2.get()), self.adminHome()])
+        button.pack()
+        button = tk.Button(self.frame2, text = "Add Student to Course", command=lambda:[Admin.linkStudent(self, entry.get(), entry2.get()), self.adminHome()])
+        button.pack()
+
+
+
+
 
     def removeUser(self):
         for i in self.master.winfo_children():
