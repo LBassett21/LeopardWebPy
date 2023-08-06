@@ -1125,10 +1125,10 @@ class app:
         yellow_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" % (204, 204, 0), height=3)
         yellow_bar.pack(fill="x")
 
-        print_schedule_btn = Button(self.frame2, text="Print Schedule", command=lambda: self.instructorHome())
+        print_schedule_btn = Button(self.frame2, text="Print Schedule", command=lambda: self.printSchedule())
         print_schedule_btn.pack()
 
-        print_roster_btn = Button(self.frame2, text="Print Class List", command=lambda: self.printSchedule())
+        print_roster_btn = Button(self.frame2, text="Print Class List", command=lambda: self.instructorHome())
         print_roster_btn.pack()
 
         search_course_btn = Button(self.frame2, text="Search Course", command=lambda: self.instructorHome())
