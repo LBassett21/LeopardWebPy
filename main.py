@@ -967,10 +967,6 @@ class app:
         blue2_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" %(0,51,102), height=2)
         blue2_bar.pack(fill="x")
 
-
-
-
-
     def register(self):
         for i in self.master.winfo_children():
             i.destroy()
@@ -1011,13 +1007,13 @@ class app:
         crn_frame = tk.Frame(self.frame2)
         crn_frame.pack(padx=10, pady=10)
 
-        crn_entries = []
+        self.crn_entries = []
         for i in range(8):
             crn_entry = tk.Entry(crn_frame)
             crn_entry.pack(side="left", padx=5)
-            crn_entries.append(crn_entry)
+            self.crn_entries.append(crn_entry)
 
-        submit_btn = tk.Button(self.frame2, text="Submit", command=lambda: self.studentUnfinishedPage())
+        submit_btn = tk.Button(self.frame2, text="Submit", command=lambda: self.check_conflict([entry.get() for entry in self.crn_entries if entry.get()]))
         submit_btn.pack(padx=10, pady=10)
 
         main_menu_label = tk.Label(self.frame2, text="Current Courses", font=("Roboto", 14))
@@ -1057,6 +1053,48 @@ class app:
 
         blue2_bar = tk.Frame(self.frame2, bg="#%02x%02x%02x" %(0,51,102), height=2)
         blue2_bar.pack(fill="x")
+
+    def check_conflict(self, new_crn):
+
+        cursor.execute("SELECT COURSES FROM STUDENT WHERE ID=?", (self.logged_in_id,))
+        courses_data = cursor.fetchone()
+        courses_string = courses_data[0]
+        crn_list = courses_string.split(',')
+
+        cur_crn_days = []
+        for crn_number in crn_list:
+            cursor.execute("SELECT DAYS FROM COURSES WHERE CRN=?", (crn_number,))
+            course = cursor.fetchone()
+            cur_crn_days.append(course)
+
+        cur_crn_times = []
+        for crn_number in crn_list:
+            cursor.execute("SELECT TIME FROM COURSES WHERE CRN=?", (crn_number,))
+            course = cursor.fetchone()
+            cur_crn_times.append(course)
+
+        new_crn_days = []
+        for crn_number in new_crn:
+            cursor.execute("SELECT DAYS FROM COURSES WHERE CRN=?", (crn_number,))
+            course = cursor.fetchone()
+            new_crn_days.append(course)
+
+        new_crn_times = []
+        for crn_number in new_crn:
+            cursor.execute("SELECT TIME FROM COURSES WHERE CRN=?", (crn_number,))
+            course = cursor.fetchone()
+            new_crn_times.append(course)
+
+        # Checks for duplicate CRN's
+        for crn in new_crn:
+            if crn in crn_list:
+                print(f"Found duplicate, {crn}")
+                return False
+
+        new_courses_string = courses_string + ',' + ','.join(new_crn)
+        cursor.execute("UPDATE STUDENT SET COURSES=? WHERE ID=?", (new_courses_string, self.logged_in_id))
+        db.commit()
+        return True
 
     def studentRecords(self):
         for i in self.master.winfo_children():
